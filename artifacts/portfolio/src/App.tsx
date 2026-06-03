@@ -18,21 +18,63 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children: React.React
 
 const BLUE = "hsl(225 78% 65%)";
 
+const LINES = [
+  { text: "saumya kumari",                color: "foreground" as const },
+  { text: "ui/ux designer",               color: "foreground" as const },
+  { text: "graphic design intern, faucek", color: "blue" as const },
+  { text: "calmcash · ux case study",      color: "blue" as const },
+];
+
+const CHAR_SPEED = 38; // ms per character
+
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [counter, setCounter] = useState(0);
-  const [heroVisible, setHeroVisible] = useState(false);
+  // typed[i] = number of characters revealed for line i
+  const [typed, setTyped] = useState([0, 0, 0, 0]);
+  const [started, setStarted] = useState(false);
 
+  // Counter animation → then kick off typewriter
   useEffect(() => {
-    // Animate counter 0→100 over 1.8s then reveal hero
     const controls = animate(0, 100, {
       duration: 1.8,
       ease: "easeInOut",
       onUpdate: (v) => setCounter(Math.round(v)),
-      onComplete: () => setHeroVisible(true),
+      onComplete: () => setStarted(true),
     });
     return () => controls.stop();
   }, []);
+
+  // Typewriter: type each line sequentially
+  useEffect(() => {
+    if (!started) return;
+    let lineIdx = 0;
+    let charIdx = 0;
+
+    const tick = () => {
+      if (lineIdx >= LINES.length) return; // all done
+
+      charIdx += 1;
+      setTyped(prev => {
+        const next = [...prev];
+        next[lineIdx] = charIdx;
+        return next;
+      });
+
+      if (charIdx >= LINES[lineIdx].text.length) {
+        // finished this line, move to next after a short pause
+        lineIdx += 1;
+        charIdx = 0;
+        if (lineIdx < LINES.length) {
+          setTimeout(tick, 160); // gap between lines
+        }
+      } else {
+        setTimeout(tick, CHAR_SPEED);
+      }
+    };
+
+    setTimeout(tick, 100); // small initial delay
+  }, [started]);
 
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -86,37 +128,53 @@ export default function App() {
         </div>
 
         {/* Centered text block */}
-        <motion.div
+        <div
           className="flex flex-col items-center text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: heroVisible ? 1 : 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
           style={{ fontFamily: 'var(--app-font-mono)' }}
         >
-          {/* White lines */}
-          <p className="text-xl md:text-2xl lg:text-3xl text-foreground leading-loose tracking-wide">
-            saumya kumari
-          </p>
-          <p className="text-xl md:text-2xl lg:text-3xl text-foreground leading-loose tracking-wide">
-            ui/ux designer
-          </p>
+          {LINES.map((line, i) => {
+            const revealed = typed[i];
+            const isCurrentLine = revealed > 0 && revealed < line.text.length;
+            const isLastLine = i === LINES.length - 1;
+            const isLastDone = typed[LINES.length - 1] >= LINES[LINES.length - 1].text.length;
+            const showCursor = isCurrentLine || (isLastLine && !isLastDone && started);
 
-          {/* Blue lines with pipe */}
-          <p className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center gap-3" style={{ color: BLUE }}>
-            graphic design intern, faucek
-            <span className="text-current opacity-60">|</span>
-          </p>
-          <p className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center gap-3" style={{ color: BLUE }}>
-            calmcash &middot; ux case study
-            <span className="text-current opacity-60">|</span>
-          </p>
-        </motion.div>
+            if (revealed === 0 && !started) return null;
+            if (revealed === 0 && i > 0 && typed[i - 1] < LINES[i - 1].text.length) return null;
+
+            const textColor = line.color === "blue" ? BLUE : undefined;
+            const displayText = line.text.slice(0, revealed);
+
+            return (
+              <p
+                key={i}
+                className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center gap-0"
+                style={{ color: textColor, minHeight: "1.8em" }}
+              >
+                {displayText}
+                {/* blinking cursor on the actively-typing line */}
+                {showCursor && (
+                  <motion.span
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                    className="ml-0.5 inline-block w-0.5 h-[1em] align-middle"
+                    style={{ background: textColor ?? "currentColor" }}
+                  />
+                )}
+                {/* pipe at end of blue lines once fully typed */}
+                {line.color === "blue" && revealed >= line.text.length && (
+                  <span className="ml-3 opacity-50">|</span>
+                )}
+              </p>
+            );
+          })}
+        </div>
 
         {/* Chevron bottom */}
         <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
-          animate={{ opacity: heroVisible ? 1 : 0 }}
+          animate={{ opacity: typed[LINES.length - 1] >= LINES[LINES.length - 1].text.length ? 1 : 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <a href="#work" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="scroll-down">
