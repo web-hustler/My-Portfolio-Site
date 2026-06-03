@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "iinhU3MpfoAxjTWbQinCR"
+uri = "file://artifacts/portfolio/public/calmcash-project.png"
+type = "image"
+title = "calmcash fintech app wireframe"
