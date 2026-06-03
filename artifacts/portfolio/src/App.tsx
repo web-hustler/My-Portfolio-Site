@@ -39,8 +39,8 @@ function CustomCursor({ scrollPct }: { scrollPct: number }) {
       <span
         style={{
           fontFamily: "var(--app-font-mono)",
-          fontSize: 11,
-          color: "rgba(255,255,255,0.7)",
+          fontSize: 16,
+          color: "#ffffff",
           userSelect: "none",
           whiteSpace: "nowrap",
         }}
@@ -77,9 +77,19 @@ const CHAR_SPEED = 38; // ms per character
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollPct, setScrollPct] = useState(0);
+  const [isDark, setIsDark] = useState(true);
   // displayed[i] = the string shown so far for line i
   const [displayed, setDisplayed] = useState(["", "", "", ""]);
   const [started, setStarted] = useState(false);
+
+  // Apply / remove the .dark class on <html>
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDark]);
   // Use refs for mutable loop state to avoid closure/strict-mode issues
   const lineIdxRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -165,13 +175,17 @@ export default function App() {
 
         {/* Right nav */}
         <div className="flex items-center gap-8 text-sm pointer-events-auto" style={{ fontFamily: 'var(--app-font-mono)' }}>
-          {/* Dark mode toggle (decorative, matching reference) */}
-          <div className="flex items-center gap-1.5 opacity-50 select-none" aria-hidden="true">
-            <span className="text-xs">☽</span>
-            <div className="w-8 h-4 rounded-full border border-muted-foreground flex items-center px-0.5">
-              <div className="w-3 h-3 rounded-full bg-muted-foreground" />
+          {/* Dark mode toggle */}
+          <button
+            onClick={() => setIsDark(d => !d)}
+            className="flex items-center gap-1.5 select-none transition-opacity hover:opacity-100 opacity-70 cursor-none"
+            aria-label="Toggle dark mode"
+          >
+            <span className="text-xs">{isDark ? "☽" : "☀"}</span>
+            <div className="w-8 h-4 rounded-full border border-muted-foreground flex items-center px-0.5 transition-all" style={{ justifyContent: isDark ? "flex-start" : "flex-end" }}>
+              <div className="w-3 h-3 rounded-full bg-foreground transition-all" />
             </div>
-          </div>
+          </button>
           <a href="#work" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-work">work</a>
           <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">about</a>
           <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-resume">resume</a>
@@ -203,7 +217,7 @@ export default function App() {
             return (
               <p
                 key={i}
-                className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center"
+                className="text-3xl md:text-4xl lg:text-5xl leading-loose tracking-wide flex items-center"
                 style={{ color: textColor, minHeight: "1.8em" }}
               >
                 {text}
