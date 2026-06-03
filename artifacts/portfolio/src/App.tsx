@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 // @ts-ignore - The alias is provided by the environment
 import resumePdf from "@assets/Saumya_Resume_1780509559658.pdf";
 
-function CustomCursor() {
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-  const springX = useSpring(mouseX, { stiffness: 120, damping: 18, mass: 0.6 });
-  const springY = useSpring(mouseY, { stiffness: 120, damping: 18, mass: 0.6 });
+function CustomCursor({ scrollPct }: { scrollPct: number }) {
+  const mouseX = useMotionValue(-200);
+  const mouseY = useMotionValue(-200);
+  const springX = useSpring(mouseX, { stiffness: 140, damping: 20, mass: 0.5 });
+  const springY = useSpring(mouseY, { stiffness: 140, damping: 20, mass: 0.5 });
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
@@ -24,21 +24,30 @@ function CustomCursor() {
       style={{
         x: springX,
         y: springY,
-        translateX: "-50%",
-        translateY: "-50%",
         position: "fixed",
         top: 0,
         left: 0,
-        width: 14,
-        height: 14,
-        borderRadius: "50%",
-        background: "white",
-        boxShadow: "0 0 12px 4px rgba(255,255,255,0.55)",
         pointerEvents: "none",
         zIndex: 9999,
-        mixBlendMode: "difference",
+        display: "flex",
+        alignItems: "center",
+        gap: "6px",
+        transform: "translate(4px, 4px)",
       }}
-    />
+    >
+      <span style={{ fontSize: 22, lineHeight: 1, userSelect: "none" }}>👾</span>
+      <span
+        style={{
+          fontFamily: "var(--app-font-mono)",
+          fontSize: 11,
+          color: "rgba(255,255,255,0.7)",
+          userSelect: "none",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {scrollPct}%
+      </span>
+    </motion.div>
   );
 }
 
@@ -141,7 +150,7 @@ export default function App() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans cursor-none">
-      <CustomCursor />
+      <CustomCursor scrollPct={scrollPct} />
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full px-8 md:px-12 py-6 z-50 flex justify-between items-center">
@@ -171,15 +180,6 @@ export default function App() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center">
-
-        {/* Scroll progress top-right */}
-        <div
-          className="fixed top-16 right-10 text-sm text-muted-foreground select-none z-40"
-          style={{ fontFamily: 'var(--app-font-mono)' }}
-          data-testid="scroll-progress"
-        >
-          {scrollPct}%
-        </div>
 
         {/* Centered text block */}
         <div
