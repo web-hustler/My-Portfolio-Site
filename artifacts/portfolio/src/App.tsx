@@ -56,12 +56,12 @@ export default function App() {
   return (
     <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans selection:bg-foreground selection:text-background">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full p-6 md:p-12 z-50 mix-blend-difference text-white flex justify-between items-center pointer-events-none">
-        <div className="font-serif text-xl tracking-tight pointer-events-auto">SK.</div>
-        <div className="hidden md:flex gap-8 text-sm font-medium tracking-wide uppercase pointer-events-auto">
-          <a href="#work" className="hover:opacity-70 transition-opacity">Work</a>
-          <a href="#about" className="hover:opacity-70 transition-opacity">About</a>
-          <a href="#contact" className="hover:opacity-70 transition-opacity">Contact</a>
+      <nav className="fixed top-0 left-0 w-full px-6 md:px-12 py-6 z-50 flex justify-between items-center pointer-events-none">
+        <div className="font-serif text-xl tracking-tight pointer-events-auto text-foreground">SK.</div>
+        <div className="hidden md:flex gap-8 text-sm font-medium tracking-wide uppercase pointer-events-auto text-muted-foreground">
+          <a href="#work" className="hover:text-foreground transition-colors">Work</a>
+          <a href="#about" className="hover:text-foreground transition-colors">About</a>
+          <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
         </div>
       </nav>
 
@@ -88,7 +88,7 @@ export default function App() {
                 Creative and detail-oriented designer blurring the line between structured systems and beautiful, scalable digital experiences.
               </p>
               <div className="mt-8 flex gap-6">
-                <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="inline-flex items-center gap-2 border-b border-foreground pb-1 hover:opacity-70 transition-opacity uppercase text-sm tracking-widest font-medium" data-testid="link-resume">
+                <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="inline-flex items-center gap-2 pb-1 uppercase text-sm tracking-widest font-medium transition-colors" style={{ borderBottom: '1px solid hsl(225 78% 58%)', color: 'hsl(225 78% 65%)' }} data-testid="link-resume">
                   <Download className="w-4 h-4" /> Resume
                 </a>
               </div>
@@ -98,35 +98,72 @@ export default function App() {
       </section>
 
       {/* Selected Work */}
-      <section id="work" className="py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-foreground text-background">
+      <section id="work" className="py-24 md:py-32 px-6 md:px-12 lg:px-24" style={{ background: 'hsl(222 30% 10%)' }}>
         <div className="max-w-6xl mx-auto w-full">
           <FadeIn>
-            <h2 className="font-serif text-4xl md:text-6xl mb-16 md:mb-24">Selected Work</h2>
+            <h2 className="font-serif text-4xl md:text-6xl mb-16 md:mb-24 text-foreground">Selected Work</h2>
           </FadeIn>
 
           <div className="space-y-32">
             {/* Project 1 */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
               <FadeIn className="lg:col-span-7">
-                <div className="aspect-[4/3] bg-muted/20 overflow-hidden group">
-                  <img 
-                    src="/calmcash-project.png" 
-                    alt="CalmCash Fintech App Wireframes" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                <div className="aspect-[4/3] overflow-hidden group" style={{ background: 'hsl(225 78% 14%)' }}>
+                  {/* Abstract CalmCash wireframe illustration */}
+                  <svg viewBox="0 0 800 600" className="w-full h-full transition-transform duration-700 group-hover:scale-105" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="600" fill="hsl(225 78% 14%)" />
+                    {/* Phone frame */}
+                    <rect x="240" y="40" width="320" height="520" rx="32" fill="hsl(222 30% 9%)" stroke="hsl(225 78% 50%)" strokeWidth="2" />
+                    <rect x="255" y="70" width="290" height="470" rx="18" fill="hsl(222 30% 12%)" />
+                    {/* Status bar */}
+                    <rect x="270" y="82" width="260" height="20" rx="4" fill="hsl(222 20% 16%)" />
+                    {/* Balance card */}
+                    <rect x="268" y="116" width="264" height="100" rx="12" fill="hsl(225 78% 40%)" />
+                    <rect x="283" y="132" width="80" height="8" rx="4" fill="hsl(220 15% 95% / 0.5)" />
+                    <rect x="283" y="150" width="140" height="16" rx="4" fill="hsl(220 15% 95% / 0.9)" />
+                    <rect x="283" y="176" width="60" height="8" rx="4" fill="hsl(220 15% 95% / 0.4)" />
+                    {/* Expense rows */}
+                    <rect x="268" y="232" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
+                    <circle cx="294" cy="256" r="14" fill="hsl(225 78% 35%)" />
+                    <rect x="316" y="246" width="100" height="8" rx="4" fill="hsl(220 15% 85%)" />
+                    <rect x="316" y="262" width="60" height="6" rx="3" fill="hsl(220 10% 55%)" />
+                    <rect x="460" y="248" width="56" height="10" rx="4" fill="hsl(225 78% 65%)" />
+
+                    <rect x="268" y="288" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
+                    <circle cx="294" cy="312" r="14" fill="hsl(225 78% 28%)" />
+                    <rect x="316" y="302" width="80" height="8" rx="4" fill="hsl(220 15% 85%)" />
+                    <rect x="316" y="318" width="50" height="6" rx="3" fill="hsl(220 10% 55%)" />
+                    <rect x="460" y="304" width="56" height="10" rx="4" fill="hsl(0 70% 65%)" />
+
+                    <rect x="268" y="344" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
+                    <circle cx="294" cy="368" r="14" fill="hsl(225 78% 35%)" />
+                    <rect x="316" y="358" width="120" height="8" rx="4" fill="hsl(220 15% 85%)" />
+                    <rect x="316" y="374" width="70" height="6" rx="3" fill="hsl(220 10% 55%)" />
+                    <rect x="460" y="360" width="56" height="10" rx="4" fill="hsl(225 78% 65%)" />
+
+                    {/* Bottom nav */}
+                    <rect x="268" y="410" width="264" height="52" rx="10" fill="hsl(222 22% 16%)" />
+                    <circle cx="310" cy="436" r="8" fill="hsl(225 78% 58%)" />
+                    <circle cx="360" cy="436" r="8" fill="hsl(222 22% 28%)" />
+                    <circle cx="410" cy="436" r="8" fill="hsl(222 22% 28%)" />
+                    <circle cx="460" cy="436" r="8" fill="hsl(222 22% 28%)" />
+                    {/* Decorative dots */}
+                    <circle cx="100" cy="100" r="40" fill="hsl(225 78% 50% / 0.08)" />
+                    <circle cx="700" cy="500" r="60" fill="hsl(225 78% 50% / 0.08)" />
+                    <circle cx="680" cy="120" r="20" fill="hsl(225 78% 50% / 0.12)" />
+                  </svg>
                 </div>
               </FadeIn>
               <FadeIn delay={0.2} className="lg:col-span-5 flex flex-col items-start">
-                <span className="text-sm uppercase tracking-widest opacity-60 mb-4">UX Case Study</span>
-                <h3 className="font-serif text-3xl md:text-4xl mb-6">CalmCash</h3>
-                <p className="opacity-80 leading-relaxed mb-8">
+                <span className="text-sm uppercase tracking-widest mb-4" style={{ color: 'hsl(225 78% 65%)' }}>UX Case Study</span>
+                <h3 className="font-serif text-3xl md:text-4xl mb-6 text-foreground">CalmCash</h3>
+                <p className="text-muted-foreground leading-relaxed mb-8">
                   A fintech mobile app focused on simplifying personal expense tracking and money management. Developed user-centric solutions through deep user research to solve complex financial navigation.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-8">
-                  <span className="px-3 py-1 border border-background/20 rounded-full text-xs">User Research</span>
-                  <span className="px-3 py-1 border border-background/20 rounded-full text-xs">Wireframing</span>
-                  <span className="px-3 py-1 border border-background/20 rounded-full text-xs">Prototyping</span>
-                  <span className="px-3 py-1 border border-background/20 rounded-full text-xs">Figma</span>
+                  {["User Research", "Wireframing", "Prototyping", "Figma"].map(tag => (
+                    <span key={tag} className="px-3 py-1 text-xs border border-border text-muted-foreground">{tag}</span>
+                  ))}
                 </div>
               </FadeIn>
             </div>
