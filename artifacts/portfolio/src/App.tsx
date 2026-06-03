@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Mail, Linkedin, MapPin, Download } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { motion, animate } from "framer-motion";
+import { ArrowUpRight, Mail, Linkedin, Download, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 // @ts-ignore - The alias is provided by the environment
 import resumePdf from "@assets/Saumya_Resume_1780509559658.pdf";
 
@@ -16,85 +16,113 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children: React.React
   </motion.div>
 );
 
-const RevealText = ({ text, delay = 0, className = "" }: { text: string, delay?: number, className?: string }) => {
-  return (
-    <div className={`overflow-hidden ${className}`}>
-      <motion.div
-        initial={{ y: "100%" }}
-        whileInView={{ y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
-      >
-        {text}
-      </motion.div>
-    </div>
-  );
-};
+const BLUE = "hsl(225 78% 65%)";
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  const [counter, setCounter] = useState(0);
+  const [heroVisible, setHeroVisible] = useState(false);
 
   useEffect(() => {
-    // Smooth scroll for anchor links
+    // Animate counter 0→100 over 1.8s then reveal hero
+    const controls = animate(0, 100, {
+      duration: 1.8,
+      ease: "easeInOut",
+      onUpdate: (v) => setCounter(Math.round(v)),
+      onComplete: () => setHeroVisible(true),
+    });
+    return () => controls.stop();
+  }, []);
+
+  useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href') as string);
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans selection:bg-foreground selection:text-background">
+    <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans">
+
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full px-6 md:px-12 py-6 z-50 flex justify-between items-center pointer-events-none">
-        <div className="font-serif text-xl tracking-tight pointer-events-auto text-foreground">SK.</div>
-        <div className="hidden md:flex gap-8 text-sm font-medium tracking-wide uppercase pointer-events-auto text-muted-foreground">
-          <a href="#work" className="hover:text-foreground transition-colors">Work</a>
-          <a href="#about" className="hover:text-foreground transition-colors">About</a>
-          <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
+      <nav className="fixed top-0 left-0 w-full px-8 md:px-12 py-6 z-50 flex justify-between items-center">
+        {/* Logo */}
+        <div className="pointer-events-auto" data-testid="logo">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="14" r="13" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="14" y1="1" x2="14" y2="27" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="1" y1="14" x2="27" y2="14" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+        </div>
+
+        {/* Right nav */}
+        <div className="flex items-center gap-8 text-sm pointer-events-auto" style={{ fontFamily: 'var(--app-font-mono)' }}>
+          {/* Dark mode toggle (decorative, matching reference) */}
+          <div className="flex items-center gap-1.5 opacity-50 select-none" aria-hidden="true">
+            <span className="text-xs">☽</span>
+            <div className="w-8 h-4 rounded-full border border-muted-foreground flex items-center px-0.5">
+              <div className="w-3 h-3 rounded-full bg-muted-foreground" />
+            </div>
+          </div>
+          <a href="#work" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-work">work</a>
+          <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">about</a>
+          <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-resume">resume</a>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 pb-12">
-        <div className="max-w-6xl mx-auto w-full">
-          <RevealText text="Saumya" className="font-serif text-6xl md:text-8xl lg:text-[10rem] leading-none tracking-tighter -ml-2" />
-          <RevealText text="Kumari" delay={0.1} className="font-serif text-6xl md:text-8xl lg:text-[10rem] leading-none tracking-tighter -ml-2 mb-8" />
-          
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mt-12 md:mt-24">
-            <FadeIn delay={0.3} className="md:col-span-4 lg:col-span-3 text-muted-foreground flex flex-col gap-2">
-              <span className="text-sm uppercase tracking-widest font-medium text-foreground">Role</span>
-              <span>UI/UX Designer</span>
-              <span>Design Enthusiast</span>
-            </FadeIn>
-            
-            <FadeIn delay={0.4} className="md:col-span-4 lg:col-span-3 text-muted-foreground flex flex-col gap-2">
-              <span className="text-sm uppercase tracking-widest font-medium text-foreground">Location</span>
-              <span className="flex items-center gap-2"><MapPin className="w-4 h-4" /> Patna, India</span>
-            </FadeIn>
+      <section className="relative min-h-screen flex flex-col items-center justify-center">
 
-            <FadeIn delay={0.5} className="md:col-span-4 lg:col-span-6">
-              <p className="text-lg md:text-xl lg:text-2xl leading-relaxed font-serif max-w-2xl text-foreground">
-                Creative and detail-oriented designer blurring the line between structured systems and beautiful, scalable digital experiences.
-              </p>
-              <div className="mt-8 flex gap-6">
-                <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="inline-flex items-center gap-2 pb-1 uppercase text-sm tracking-widest font-medium transition-colors" style={{ borderBottom: '1px solid hsl(225 78% 58%)', color: 'hsl(225 78% 65%)' }} data-testid="link-resume">
-                  <Download className="w-4 h-4" /> Resume
-                </a>
-              </div>
-            </FadeIn>
-          </div>
+        {/* Counter top-right */}
+        <div
+          className="fixed top-16 right-10 text-sm text-muted-foreground select-none z-40"
+          style={{ fontFamily: 'var(--app-font-mono)' }}
+          data-testid="counter"
+        >
+          {counter}%
         </div>
+
+        {/* Centered text block */}
+        <motion.div
+          className="flex flex-col items-center text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: heroVisible ? 1 : 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          style={{ fontFamily: 'var(--app-font-mono)' }}
+        >
+          {/* White lines */}
+          <p className="text-xl md:text-2xl lg:text-3xl text-foreground leading-loose tracking-wide">
+            saumya kumari
+          </p>
+          <p className="text-xl md:text-2xl lg:text-3xl text-foreground leading-loose tracking-wide">
+            ui/ux designer
+          </p>
+
+          {/* Blue lines with pipe */}
+          <p className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center gap-3" style={{ color: BLUE }}>
+            graphic design intern, faucek
+            <span className="text-current opacity-60">|</span>
+          </p>
+          <p className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center gap-3" style={{ color: BLUE }}>
+            calmcash &middot; ux case study
+            <span className="text-current opacity-60">|</span>
+          </p>
+        </motion.div>
+
+        {/* Chevron bottom */}
+        <motion.div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: heroVisible ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <a href="#work" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="scroll-down">
+            <ChevronDown className="w-5 h-5" strokeWidth={1.5} />
+          </a>
+        </motion.div>
       </section>
 
       {/* Selected Work */}
