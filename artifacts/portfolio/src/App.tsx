@@ -174,7 +174,7 @@ export default function App() {
         </div>
 
         {/* Right nav */}
-        <div className="flex items-center gap-8 text-sm pointer-events-auto" style={{ fontFamily: 'var(--app-font-mono)' }}>
+        <div className="flex items-center gap-8 text-base pointer-events-auto" style={{ fontFamily: 'var(--app-font-mono)' }}>
           {/* Dark mode toggle */}
           <button
             onClick={() => setIsDark(d => !d)}
@@ -217,7 +217,7 @@ export default function App() {
             return (
               <p
                 key={i}
-                className="text-3xl md:text-4xl lg:text-5xl leading-loose tracking-wide flex items-center"
+                className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center"
                 style={{ color: textColor, minHeight: "1.8em" }}
               >
                 {text}
