@@ -1,8 +1,46 @@
-import { motion, animate } from "framer-motion";
+import { motion, animate, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, Mail, Linkedin, Download, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 // @ts-ignore - The alias is provided by the environment
 import resumePdf from "@assets/Saumya_Resume_1780509559658.pdf";
+
+function CustomCursor() {
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 18, mass: 0.6 });
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 18, mass: 0.6 });
+
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, [mouseX, mouseY]);
+
+  return (
+    <motion.div
+      style={{
+        x: springX,
+        y: springY,
+        translateX: "-50%",
+        translateY: "-50%",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: 14,
+        height: 14,
+        borderRadius: "50%",
+        background: "white",
+        boxShadow: "0 0 12px 4px rgba(255,255,255,0.55)",
+        pointerEvents: "none",
+        zIndex: 9999,
+        mixBlendMode: "difference",
+      }}
+    />
+  );
+}
 
 const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
   <motion.div
@@ -29,7 +67,7 @@ const CHAR_SPEED = 38; // ms per character
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [counter, setCounter] = useState(0);
+  const [scrollPct, setScrollPct] = useState(0);
   // displayed[i] = the string shown so far for line i
   const [displayed, setDisplayed] = useState(["", "", "", ""]);
   const [started, setStarted] = useState(false);
@@ -37,15 +75,22 @@ export default function App() {
   const lineIdxRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Counter animation → then kick off typewriter
+  // Scroll progress percentage
   useEffect(() => {
-    const controls = animate(0, 100, {
-      duration: 1.8,
-      ease: "easeInOut",
-      onUpdate: (v) => setCounter(Math.round(v)),
-      onComplete: () => setStarted(true),
-    });
-    return () => controls.stop();
+    const update = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = scrollable > 0 ? Math.round((window.scrollY / scrollable) * 100) : 0;
+      setScrollPct(pct);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  // Kick off typewriter after a short delay (no loading counter needed)
+  useEffect(() => {
+    const t = setTimeout(() => setStarted(true), 600);
+    return () => clearTimeout(t);
   }, []);
 
   // Typewriter: type each line sequentially
@@ -95,7 +140,8 @@ export default function App() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans">
+    <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans cursor-none">
+      <CustomCursor />
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full px-8 md:px-12 py-6 z-50 flex justify-between items-center">
@@ -126,13 +172,13 @@ export default function App() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center">
 
-        {/* Counter top-right */}
+        {/* Scroll progress top-right */}
         <div
           className="fixed top-16 right-10 text-sm text-muted-foreground select-none z-40"
           style={{ fontFamily: 'var(--app-font-mono)' }}
-          data-testid="counter"
+          data-testid="scroll-progress"
         >
-          {counter}%
+          {scrollPct}%
         </div>
 
         {/* Centered text block */}
