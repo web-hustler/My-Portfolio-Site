@@ -30,9 +30,12 @@ const CHAR_SPEED = 38; // ms per character
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [counter, setCounter] = useState(0);
-  // typed[i] = number of characters revealed for line i
-  const [typed, setTyped] = useState([0, 0, 0, 0]);
+  // displayed[i] = the string shown so far for line i
+  const [displayed, setDisplayed] = useState(["", "", "", ""]);
   const [started, setStarted] = useState(false);
+  // Use refs for mutable loop state to avoid closure/strict-mode issues
+  const lineIdxRef = useRef(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Counter animation → then kick off typewriter
   useEffect(() => {
@@ -48,32 +51,37 @@ export default function App() {
   // Typewriter: type each line sequentially
   useEffect(() => {
     if (!started) return;
-    let lineIdx = 0;
-    let charIdx = 0;
+    lineIdxRef.current = 0;
 
-    const tick = () => {
-      if (lineIdx >= LINES.length) return; // all done
+    const typeChar = (lineIdx: number, charIdx: number) => {
+      if (lineIdx >= LINES.length) return;
 
-      charIdx += 1;
-      setTyped(prev => {
+      const fullText = LINES[lineIdx].text;
+      const nextChar = charIdx + 1;
+
+      setDisplayed(prev => {
         const next = [...prev];
-        next[lineIdx] = charIdx;
+        next[lineIdx] = fullText.slice(0, nextChar);
         return next;
       });
 
-      if (charIdx >= LINES[lineIdx].text.length) {
-        // finished this line, move to next after a short pause
-        lineIdx += 1;
-        charIdx = 0;
-        if (lineIdx < LINES.length) {
-          setTimeout(tick, 160); // gap between lines
-        }
+      if (nextChar < fullText.length) {
+        // more chars in this line
+        timerRef.current = setTimeout(() => typeChar(lineIdx, nextChar), CHAR_SPEED);
       } else {
-        setTimeout(tick, CHAR_SPEED);
+        // line done — move to next after a pause
+        const nextLine = lineIdx + 1;
+        if (nextLine < LINES.length) {
+          timerRef.current = setTimeout(() => typeChar(nextLine, 0), 180);
+        }
       }
     };
 
-    setTimeout(tick, 100); // small initial delay
+    timerRef.current = setTimeout(() => typeChar(0, -1), 100);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [started]);
 
   useEffect(() => {
@@ -133,36 +141,37 @@ export default function App() {
           style={{ fontFamily: 'var(--app-font-mono)' }}
         >
           {LINES.map((line, i) => {
-            const revealed = typed[i];
-            const isCurrentLine = revealed > 0 && revealed < line.text.length;
-            const isLastLine = i === LINES.length - 1;
-            const isLastDone = typed[LINES.length - 1] >= LINES[LINES.length - 1].text.length;
-            const showCursor = isCurrentLine || (isLastLine && !isLastDone && started);
+            const text = displayed[i];
+            const isDone = text === line.text;
+            const isTyping = text.length > 0 && !isDone;
+            // Show cursor on the actively-typing line, or on the next line waiting to start
+            const prevDone = i === 0 || displayed[i - 1] === LINES[i - 1].text;
+            const isCurrent = (isTyping) || (prevDone && !isDone && started && text.length === 0);
 
-            if (revealed === 0 && !started) return null;
-            if (revealed === 0 && i > 0 && typed[i - 1] < LINES[i - 1].text.length) return null;
+            // Don't render a line until the previous one is done
+            if (!started) return null;
+            if (text.length === 0 && !prevDone) return null;
 
             const textColor = line.color === "blue" ? BLUE : undefined;
-            const displayText = line.text.slice(0, revealed);
 
             return (
               <p
                 key={i}
-                className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center gap-0"
+                className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center"
                 style={{ color: textColor, minHeight: "1.8em" }}
               >
-                {displayText}
-                {/* blinking cursor on the actively-typing line */}
-                {showCursor && (
+                {text}
+                {/* blinking cursor on the active line */}
+                {isCurrent && (
                   <motion.span
                     animate={{ opacity: [1, 0] }}
-                    transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-                    className="ml-0.5 inline-block w-0.5 h-[1em] align-middle"
+                    transition={{ duration: 0.53, repeat: Infinity, repeatType: "reverse" }}
+                    className="ml-px inline-block w-[2px] h-[0.85em] align-middle"
                     style={{ background: textColor ?? "currentColor" }}
                   />
                 )}
-                {/* pipe at end of blue lines once fully typed */}
-                {line.color === "blue" && revealed >= line.text.length && (
+                {/* pipe appears after blue lines finish */}
+                {line.color === "blue" && isDone && (
                   <span className="ml-3 opacity-50">|</span>
                 )}
               </p>
@@ -174,7 +183,7 @@ export default function App() {
         <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
-          animate={{ opacity: typed[LINES.length - 1] >= LINES[LINES.length - 1].text.length ? 1 : 0 }}
+          animate={{ opacity: displayed[LINES.length - 1] === LINES[LINES.length - 1].text ? 1 : 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <a href="#work" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="scroll-down">
