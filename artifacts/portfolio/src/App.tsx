@@ -35,7 +35,7 @@ function CustomCursor({ scrollPct }: { scrollPct: number }) {
         transform: "translate(4px, 4px)",
       }}
     >
-      <span style={{ fontSize: 22, lineHeight: 1, userSelect: "none" }}>👾</span>
+      <span style={{ fontSize: 38, lineHeight: 1, userSelect: "none" }}>👾</span>
       <span
         style={{
           fontFamily: "var(--app-font-mono)",
