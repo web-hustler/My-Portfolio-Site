@@ -252,150 +252,162 @@ export default function App() {
         </motion.div>
       </section>
 
-      {/* Selected Work */}
-      <section id="work" className="py-24 md:py-32 px-6 md:px-12 lg:px-24" style={{ background: 'hsl(222 30% 10%)' }}>
-        <div className="max-w-6xl mx-auto w-full">
-          <FadeIn>
-            <h2 className="font-serif text-4xl md:text-6xl mb-16 md:mb-24 text-foreground">Selected Work</h2>
-          </FadeIn>
+      {/* Work & Experience — full-bleed card grid */}
+      <section id="work" className="w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: '80vh' }}>
 
-          <div className="space-y-32">
-            {/* Project 1 */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-              <FadeIn className="lg:col-span-7">
-                <div className="aspect-[4/3] overflow-hidden group" style={{ background: 'hsl(225 78% 14%)' }}>
-                  {/* Abstract CalmCash wireframe illustration */}
-                  <svg viewBox="0 0 800 600" className="w-full h-full transition-transform duration-700 group-hover:scale-105" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="800" height="600" fill="hsl(225 78% 14%)" />
-                    {/* Phone frame */}
-                    <rect x="240" y="40" width="320" height="520" rx="32" fill="hsl(222 30% 9%)" stroke="hsl(225 78% 50%)" strokeWidth="2" />
-                    <rect x="255" y="70" width="290" height="470" rx="18" fill="hsl(222 30% 12%)" />
-                    {/* Status bar */}
-                    <rect x="270" y="82" width="260" height="20" rx="4" fill="hsl(222 20% 16%)" />
-                    {/* Balance card */}
-                    <rect x="268" y="116" width="264" height="100" rx="12" fill="hsl(225 78% 40%)" />
-                    <rect x="283" y="132" width="80" height="8" rx="4" fill="hsl(220 15% 95% / 0.5)" />
-                    <rect x="283" y="150" width="140" height="16" rx="4" fill="hsl(220 15% 95% / 0.9)" />
-                    <rect x="283" y="176" width="60" height="8" rx="4" fill="hsl(220 15% 95% / 0.4)" />
-                    {/* Expense rows */}
-                    <rect x="268" y="232" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
-                    <circle cx="294" cy="256" r="14" fill="hsl(225 78% 35%)" />
-                    <rect x="316" y="246" width="100" height="8" rx="4" fill="hsl(220 15% 85%)" />
-                    <rect x="316" y="262" width="60" height="6" rx="3" fill="hsl(220 10% 55%)" />
-                    <rect x="460" y="248" width="56" height="10" rx="4" fill="hsl(225 78% 65%)" />
-
-                    <rect x="268" y="288" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
-                    <circle cx="294" cy="312" r="14" fill="hsl(225 78% 28%)" />
-                    <rect x="316" y="302" width="80" height="8" rx="4" fill="hsl(220 15% 85%)" />
-                    <rect x="316" y="318" width="50" height="6" rx="3" fill="hsl(220 10% 55%)" />
-                    <rect x="460" y="304" width="56" height="10" rx="4" fill="hsl(0 70% 65%)" />
-
-                    <rect x="268" y="344" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
-                    <circle cx="294" cy="368" r="14" fill="hsl(225 78% 35%)" />
-                    <rect x="316" y="358" width="120" height="8" rx="4" fill="hsl(220 15% 85%)" />
-                    <rect x="316" y="374" width="70" height="6" rx="3" fill="hsl(220 10% 55%)" />
-                    <rect x="460" y="360" width="56" height="10" rx="4" fill="hsl(225 78% 65%)" />
-
-                    {/* Bottom nav */}
-                    <rect x="268" y="410" width="264" height="52" rx="10" fill="hsl(222 22% 16%)" />
-                    <circle cx="310" cy="436" r="8" fill="hsl(225 78% 58%)" />
-                    <circle cx="360" cy="436" r="8" fill="hsl(222 22% 28%)" />
-                    <circle cx="410" cy="436" r="8" fill="hsl(222 22% 28%)" />
-                    <circle cx="460" cy="436" r="8" fill="hsl(222 22% 28%)" />
-                    {/* Decorative dots */}
-                    <circle cx="100" cy="100" r="40" fill="hsl(225 78% 50% / 0.08)" />
-                    <circle cx="700" cy="500" r="60" fill="hsl(225 78% 50% / 0.08)" />
-                    <circle cx="680" cy="120" r="20" fill="hsl(225 78% 50% / 0.12)" />
-                  </svg>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.2} className="lg:col-span-5 flex flex-col items-start">
-                <span className="text-sm uppercase tracking-widest mb-4" style={{ color: 'hsl(225 78% 65%)' }}>UX Case Study</span>
-                <h3 className="font-serif text-3xl md:text-4xl mb-6 text-foreground">CalmCash</h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">
-                  A fintech mobile app focused on simplifying personal expense tracking and money management. Developed user-centric solutions through deep user research to solve complex financial navigation.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {["User Research", "Wireframing", "Prototyping", "Figma"].map(tag => (
-                    <span key={tag} className="px-3 py-1 text-xs border border-border text-muted-foreground">{tag}</span>
-                  ))}
-                </div>
-              </FadeIn>
+          {/* ── CalmCash card ── */}
+          <a
+            href="#"
+            className="group relative overflow-hidden flex flex-col justify-end cursor-none"
+            style={{ minHeight: '70vh' }}
+            data-testid="card-calmcash"
+          >
+            {/* Background pattern */}
+            <div className="absolute inset-0" style={{ background: 'hsl(225 78% 14%)' }}>
+              <svg viewBox="0 0 800 700" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <rect width="800" height="700" fill="hsl(225 78% 14%)" />
+                {/* phone frame centre */}
+                <rect x="240" y="60" width="320" height="520" rx="32" fill="hsl(222 30% 9%)" stroke="hsl(225 78% 50%)" strokeWidth="2" opacity="0.9" />
+                <rect x="255" y="90" width="290" height="470" rx="18" fill="hsl(222 30% 12%)" />
+                <rect x="270" y="102" width="260" height="20" rx="4" fill="hsl(222 20% 16%)" />
+                <rect x="268" y="136" width="264" height="100" rx="12" fill="hsl(225 78% 40%)" />
+                <rect x="283" y="152" width="80" height="8" rx="4" fill="hsl(220 15% 95% / 0.5)" />
+                <rect x="283" y="170" width="140" height="16" rx="4" fill="hsl(220 15% 95% / 0.9)" />
+                <rect x="268" y="252" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
+                <circle cx="294" cy="276" r="14" fill="hsl(225 78% 35%)" />
+                <rect x="316" y="266" width="100" height="8" rx="4" fill="hsl(220 15% 85%)" />
+                <rect x="460" y="268" width="56" height="10" rx="4" fill="hsl(225 78% 65%)" />
+                <rect x="268" y="308" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
+                <circle cx="294" cy="332" r="14" fill="hsl(225 78% 28%)" />
+                <rect x="316" y="322" width="80" height="8" rx="4" fill="hsl(220 15% 85%)" />
+                <rect x="460" y="324" width="56" height="10" rx="4" fill="hsl(0 70% 65%)" />
+                <rect x="268" y="364" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
+                <circle cx="294" cy="388" r="14" fill="hsl(225 78% 35%)" />
+                <rect x="316" y="378" width="120" height="8" rx="4" fill="hsl(220 15% 85%)" />
+                <rect x="460" y="380" width="56" height="10" rx="4" fill="hsl(225 78% 65%)" />
+                <rect x="268" y="430" width="264" height="52" rx="10" fill="hsl(222 22% 16%)" />
+                <circle cx="310" cy="456" r="8" fill="hsl(225 78% 58%)" />
+                <circle cx="360" cy="456" r="8" fill="hsl(222 22% 28%)" />
+                <circle cx="410" cy="456" r="8" fill="hsl(222 22% 28%)" />
+                <circle cx="460" cy="456" r="8" fill="hsl(222 22% 28%)" />
+                {/* decorative glows */}
+                <circle cx="90" cy="90" r="50" fill="hsl(225 78% 50% / 0.07)" />
+                <circle cx="710" cy="580" r="70" fill="hsl(225 78% 50% / 0.07)" />
+                <circle cx="700" cy="110" r="25" fill="hsl(225 78% 50% / 0.1)" />
+              </svg>
             </div>
-          </div>
+            {/* Dark overlay — lifts on hover */}
+            <div className="absolute inset-0 bg-black/60 group-hover:bg-black/20 transition-all duration-500" />
+            {/* Content */}
+            <div className="relative z-10 p-8 md:p-12">
+              <p className="text-xs uppercase tracking-widest text-white/50 mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
+                ux case study // personal project
+              </p>
+              <h2 className="font-serif text-4xl md:text-5xl text-white mb-3 leading-tight">CalmCash</h2>
+              <div className="text-xl mb-4">💸 ✨</div>
+              <p className="text-sm text-white/60 max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
+                ux design // fintech // simplifying personal expense tracking and money management
+              </p>
+            </div>
+          </a>
+
+          {/* ── Faucek card ── */}
+          <a
+            href="#"
+            className="group relative overflow-hidden flex flex-col justify-end cursor-none"
+            style={{ minHeight: '70vh' }}
+            data-testid="card-faucek"
+          >
+            {/* Background geometric pattern */}
+            <div className="absolute inset-0" style={{ background: 'hsl(28 60% 18%)' }}>
+              <svg viewBox="0 0 800 700" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <rect width="800" height="700" fill="hsl(28 60% 18%)" />
+                {/* scattered geometric shapes */}
+                <polygon points="80,60 120,130 40,130" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.5" />
+                <rect x="200" y="50" width="50" height="50" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <circle cx="380" cy="90" r="28" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <polygon points="520,40 560,110 480,110" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.5" />
+                <rect x="640" y="55" width="45" height="45" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" transform="rotate(20,662,77)" />
+                <path d="M720,160 Q760,140 740,180 Q720,200 700,180 Q700,160 720,160" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <polygon points="50,240 90,310 10,310" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <circle cx="170" cy="280" r="22" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
+                <path d="M280,250 L280,320 M245,285 L315,285" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
+                <rect x="380" y="240" width="55" height="55" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <polygon points="520,220 565,295 475,295" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.5" />
+                <path d="M630,260 Q670,230 680,270 Q690,310 650,310 Q610,310 630,260" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <path d="M730,240 Q760,270 730,300 Q700,270 730,240" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <circle cx="90" cy="430" r="30" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
+                <polygon points="200,390 240,460 160,460" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.45" />
+                <rect x="320" y="400" width="48" height="48" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" transform="rotate(15,344,424)" />
+                <path d="M480,420 Q520,395 510,435 Q500,475 470,455 Q450,435 480,420" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <path d="M600,400 L630,440 L570,440 Z" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.45" />
+                <path d="M50,560 Q90,530 100,570 Q110,610 70,600 Q30,590 50,560" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <rect x="170" y="550" width="42" height="42" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
+                <polygon points="310,540 350,610 270,610" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+                <circle cx="450" cy="580" r="26" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
+                <path d="M560,550 L560,620 M525,585 L595,585" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
+                <rect x="650" y="545" width="50" height="50" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
+              </svg>
+            </div>
+            {/* Dark overlay — lifts on hover */}
+            <div className="absolute inset-0 bg-black/65 group-hover:bg-black/20 transition-all duration-500" />
+            {/* Content */}
+            <div className="relative z-10 p-8 md:p-12">
+              <p className="text-xs uppercase tracking-widest text-white/50 mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
+                graphic design // internship
+              </p>
+              <h2 className="font-serif text-4xl md:text-5xl text-white mb-3 leading-tight">Faucek</h2>
+              <div className="text-xl mb-4">🎨 ✦</div>
+              <p className="text-sm text-white/60 max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
+                branding // social media // designing creative content for 20+ brands
+              </p>
+            </div>
+          </a>
+
         </div>
       </section>
 
-      {/* Experience & Education */}
+      {/* Education */}
       <section id="about" className="py-24 md:py-32 px-6 md:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-24">
-          
-          {/* Experience */}
-          <div>
-            <FadeIn>
-              <h2 className="font-serif text-3xl md:text-5xl mb-12 border-b border-border pb-8">Experience</h2>
+        <div className="max-w-6xl mx-auto w-full">
+          <FadeIn>
+            <h2 className="font-serif text-3xl md:text-5xl mb-12 border-b border-border pb-8">Education</h2>
+          </FadeIn>
+          <div className="space-y-12">
+            <FadeIn delay={0.1}>
+              <div className="flex flex-col mb-2">
+                <h3 className="text-xl font-serif mb-1">BIT Mesra (Off Campus Patna)</h3>
+                <div className="text-muted-foreground">B.Tech in Computer Science Engineering</div>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="uppercase tracking-widest text-muted-foreground">2023 – Present</span>
+                <span className="font-medium">CGPA: 8.4</span>
+              </div>
             </FadeIn>
-            
-            <div className="space-y-16">
-              <FadeIn delay={0.1}>
-                <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
-                  <h3 className="text-xl md:text-2xl font-serif">Graphic Design Intern</h3>
-                  <span className="text-sm text-muted-foreground uppercase tracking-widest mt-2 md:mt-0">May '25 – Feb '26</span>
-                </div>
-                <div className="text-lg mb-4 text-foreground/80">Faucek &mdash; Remote, Jaipur</div>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  Designed creative content for 20+ brands. Created social media and digital branding systems, developed marketing creatives, and collaborated directly with clients managing multiple design projects simultaneously.
-                </p>
-                <div className="text-sm text-muted-foreground">
-                  <span className="text-foreground uppercase tracking-widest text-xs font-medium mr-2">Tools:</span> 
-                  Adobe Photoshop, Canva Pro, Manus, Gamma
-                </div>
-              </FadeIn>
-            </div>
-          </div>
 
-          {/* Education */}
-          <div>
-            <FadeIn>
-              <h2 className="font-serif text-3xl md:text-5xl mb-12 border-b border-border pb-8">Education</h2>
+            <FadeIn delay={0.2}>
+              <div className="flex flex-col mb-2">
+                <h3 className="text-xl font-serif mb-1">St. Karen's High School</h3>
+                <div className="text-muted-foreground">12th Grade, CBSE</div>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="uppercase tracking-widest text-muted-foreground">2021 – 2022</span>
+                <span className="font-medium">89.6%</span>
+              </div>
             </FadeIn>
-            
-            <div className="space-y-12">
-              <FadeIn delay={0.1}>
-                <div className="flex flex-col mb-2">
-                  <h3 className="text-xl font-serif mb-1">BIT Mesra (Off Campus Patna)</h3>
-                  <div className="text-muted-foreground">B.Tech in Computer Science Engineering</div>
-                </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="uppercase tracking-widest text-muted-foreground">2023 – Present</span>
-                  <span className="font-medium">CGPA: 8.4</span>
-                </div>
-              </FadeIn>
 
-              <FadeIn delay={0.2}>
-                <div className="flex flex-col mb-2">
-                  <h3 className="text-xl font-serif mb-1">St. Karen's High School</h3>
-                  <div className="text-muted-foreground">12th Grade, CBSE</div>
-                </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="uppercase tracking-widest text-muted-foreground">2021 – 2022</span>
-                  <span className="font-medium">89.6%</span>
-                </div>
-              </FadeIn>
-
-              <FadeIn delay={0.3}>
-                <div className="flex flex-col mb-2">
-                  <h3 className="text-xl font-serif mb-1">St. Karen's High School</h3>
-                  <div className="text-muted-foreground">10th Grade, CBSE</div>
-                </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="uppercase tracking-widest text-muted-foreground">2019 – 2020</span>
-                  <span className="font-medium">93.0%</span>
-                </div>
-              </FadeIn>
-            </div>
+            <FadeIn delay={0.3}>
+              <div className="flex flex-col mb-2">
+                <h3 className="text-xl font-serif mb-1">St. Karen's High School</h3>
+                <div className="text-muted-foreground">10th Grade, CBSE</div>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="uppercase tracking-widest text-muted-foreground">2019 – 2020</span>
+                <span className="font-medium">93.0%</span>
+              </div>
+            </FadeIn>
           </div>
-
         </div>
       </section>
 
