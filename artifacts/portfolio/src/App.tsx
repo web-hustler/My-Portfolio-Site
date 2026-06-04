@@ -307,7 +307,7 @@ export default function App() {
               <h2 className="font-serif text-4xl md:text-5xl text-white mb-3 leading-tight">CalmCash</h2>
               <div className="text-xl mb-4">💸 ✨</div>
               <p className="text-sm text-white/60 max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
-                ux design // fintech // built Calm AI to detect spending patterns and recommend smarter financial decisions.
+                fintech // built Calm AI to detect spending patterns and recommend smarter financial decisions.
               </p>
             </div>
           </a>
