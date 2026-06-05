@@ -1,6 +1,7 @@
 import { motion, animate, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, Mail, Linkedin, Download, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // @ts-ignore - The alias is provided by the environment
 import resumePdf from "@assets/Saumya_Resume_1780509559658.pdf";
 
@@ -75,6 +76,7 @@ const LINES = [
 const CHAR_SPEED = 38; // ms per character
 
 export default function App() {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollPct, setScrollPct] = useState(0);
   const [isDark, setIsDark] = useState(true);
@@ -169,7 +171,7 @@ export default function App() {
           className="pointer-events-auto focus:outline-none"
           data-testid="logo"
           aria-label="Go to home"
-          onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); window.location.reload(); }}
+          onClick={() => { navigate("/"); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         >
           <div style={{
             width: 56,
@@ -206,7 +208,7 @@ export default function App() {
             </div>
           </button>
           <a href="#work" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-work">work</a>
-          <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">about</a>
+          <button onClick={() => navigate("/about")} className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">about</button>
           <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-resume">resume</a>
         </div>
       </nav>
@@ -384,87 +386,6 @@ export default function App() {
             </div>
           </a>
 
-        </div>
-      </section>
-
-      {/* Education */}
-      <section id="about" className="py-24 md:py-32 px-6 md:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto w-full">
-          <FadeIn>
-            <h2 className="font-serif text-3xl md:text-5xl mb-12 border-b border-border pb-8">Education</h2>
-          </FadeIn>
-          <div className="space-y-12">
-            <FadeIn delay={0.1}>
-              <div className="flex flex-col mb-2">
-                <h3 className="text-xl font-serif mb-1">BIT Mesra (Off Campus Patna)</h3>
-                <div className="text-muted-foreground">B.Tech in Computer Science Engineering</div>
-              </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="uppercase tracking-widest text-muted-foreground">2023 – Present</span>
-                <span className="font-medium">CGPA: 8.4</span>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col mb-2">
-                <h3 className="text-xl font-serif mb-1">St. Karen's High School</h3>
-                <div className="text-muted-foreground">12th Grade, CBSE</div>
-              </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="uppercase tracking-widest text-muted-foreground">2021 – 2022</span>
-                <span className="font-medium">89.6%</span>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.3}>
-              <div className="flex flex-col mb-2">
-                <h3 className="text-xl font-serif mb-1">St. Karen's High School</h3>
-                <div className="text-muted-foreground">10th Grade, CBSE</div>
-              </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="uppercase tracking-widest text-muted-foreground">2019 – 2020</span>
-                <span className="font-medium">93.0%</span>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills */}
-      <section className="py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-muted/30">
-        <div className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24">
-          <FadeIn>
-            <h3 className="text-sm uppercase tracking-widest font-medium mb-8">Design</h3>
-            <ul className="space-y-4 text-muted-foreground text-lg">
-              <li>UI/UX Design</li>
-              <li>Wireframing & Prototyping</li>
-              <li>Design Systems</li>
-              <li>Responsive Design</li>
-              <li>Visual Design & Branding</li>
-            </ul>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <h3 className="text-sm uppercase tracking-widest font-medium mb-8">Tools</h3>
-            <ul className="space-y-4 text-muted-foreground text-lg">
-              <li>Figma & Framer</li>
-              <li>Adobe Photoshop</li>
-              <li>Canva Pro</li>
-              <li>Blender 3D</li>
-              <li>AI Tools (ChatGPT, Claude, Manus)</li>
-            </ul>
-          </FadeIn>
-
-          <FadeIn delay={0.2}>
-            <h3 className="text-sm uppercase tracking-widest font-medium mb-8">Soft Skills</h3>
-            <ul className="space-y-4 text-muted-foreground text-lg">
-              <li>Problem Solving</li>
-              <li>Creative Thinking</li>
-              <li>Adaptability</li>
-              <li>Team Collaboration</li>
-              <li>Time Management</li>
-            </ul>
-          </FadeIn>
         </div>
       </section>
 
