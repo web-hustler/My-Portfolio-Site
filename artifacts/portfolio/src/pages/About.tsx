@@ -153,9 +153,9 @@ export default function About() {
             </p>
             <div className="flex flex-col gap-5">
               {[
-                { icon: "🔍", text: "Seeking internships/FTE opportunities to explore UI/UX and also Bengaluru a bit.." },
-                { icon: "📸", text: "Love to capture emotions.. photography (hobby)" },
-                { icon: "🍛", text: "Biryani or pizza (can't choose).. foodie" },
+                { icon: "🤞", text: "Seeking internships/FTE opportunities to explore UI/UX and also Bengaluru a bit.." },
+                { icon: "🤞", text: "Love to capture emotions.. photography (hobby)" },
+                { icon: "🤞", text: "Biryani or pizza (can't choose).. foodie" },
               ].map(({ icon, text }, i) => (
                 <div key={i} className="flex items-start gap-4">
                   <span className="inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-full border border-border mt-0.5 text-base" style={{ background: "var(--muted)" }}>
