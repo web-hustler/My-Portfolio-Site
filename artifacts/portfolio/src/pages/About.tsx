@@ -132,9 +132,7 @@ export default function About() {
         <div className="flex flex-col gap-6 mb-16">
           <FadeIn delay={0.05}>
             <div className="flex items-start gap-4">
-              <span className="inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-full border border-border overflow-hidden mt-0.5" style={{ background: "var(--muted)" }}>
-                <img src={isDark ? "/logo.png" : "/logo-light.png"} alt="" width="22" height="22" style={{ objectFit: "contain" }} />
-              </span>
+              <span className="shrink-0 text-xl mt-0.5">👾</span>
               <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
                 Currently seeking internships, freelance projects and opportunities to create and make an impact. Also making pocket money by freelancing — and obviously ready and eager to expand it more.
               </p>
@@ -143,9 +141,7 @@ export default function About() {
 
           <FadeIn delay={0.1}>
             <div className="flex items-start gap-4">
-              <span className="inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-full border border-border overflow-hidden mt-0.5" style={{ background: "var(--muted)" }}>
-                <img src={isDark ? "/logo.png" : "/logo-light.png"} alt="" width="22" height="22" style={{ objectFit: "contain" }} />
-              </span>
+              <span className="shrink-0 text-xl mt-0.5">👾</span>
               <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
                 I've previously designed for <span className="text-foreground">Faucek</span> and created social media content for <span className="text-foreground">Hiprotech</span>, <span className="text-foreground">Level Up</span> and branding content for <span className="text-foreground">Oicia</span>, <span className="text-foreground">Newvision Aesthetics</span>, <span className="text-foreground">Powdera</span>, <span className="text-foreground">Herbstonic</span>.
               </p>
@@ -154,9 +150,7 @@ export default function About() {
 
           <FadeIn delay={0.15}>
             <div className="flex items-start gap-4">
-              <span className="inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-full border border-border overflow-hidden mt-0.5" style={{ background: "var(--muted)" }}>
-                <img src={isDark ? "/logo.png" : "/logo-light.png"} alt="" width="22" height="22" style={{ objectFit: "contain" }} />
-              </span>
+              <span className="shrink-0 text-xl mt-0.5">👾</span>
               <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
                 Don't hesitate to reach out. Let's talk design, freelance, college chaos, biryani vs pizza debates, or literally anything. I'm always up for a good conversation.
               </p>
