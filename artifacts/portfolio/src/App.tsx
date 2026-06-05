@@ -169,7 +169,7 @@ export default function App() {
           className="pointer-events-auto focus:outline-none"
           data-testid="logo"
           aria-label="Go to home"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); window.location.reload(); }}
         >
           <img
             src={isDark ? "/logo.png" : "/logo-light.png"}
