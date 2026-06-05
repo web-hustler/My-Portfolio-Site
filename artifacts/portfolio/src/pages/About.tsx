@@ -114,11 +114,7 @@ export default function About() {
               </p>
 
               <p className="text-muted-foreground">
-                While my focus is on UI/UX and design systems, I am not just a designer — I care deeply about the experience and the people using it.
-              </p>
-
-              <p className="text-muted-foreground">
-                I love creating scalable, accessible design systems to be used across products. I enjoy turning ideas to experiences that makes people say, <span className="text-foreground italic">"that's really cool."</span>
+                I love creating scalable, accessible design systems to be used across products. I enjoy turning ideas to experiences that makes people to say, <span className="text-foreground italic">"that's really cool."</span>
               </p>
 
               <p className="text-muted-foreground">
@@ -134,7 +130,7 @@ export default function About() {
             <div className="flex items-start gap-4">
               <span className="shrink-0 text-xl mt-0.5">👾</span>
               <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
-                Currently seeking internships, freelance projects and opportunities to create and make an impact. Also making pocket money by freelancing — and obviously ready and eager to expand it more.
+                Currently, I'm seeking internships, freelance projects and opportunities to create and make an impact. Also, making pocket money by freelancing and obviously ready and needed to expand it more.
               </p>
             </div>
           </FadeIn>
@@ -143,16 +139,7 @@ export default function About() {
             <div className="flex items-start gap-4">
               <span className="shrink-0 text-xl mt-0.5">👾</span>
               <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
-                I've previously designed for <span className="text-foreground">Faucek</span> and created social media content for <span className="text-foreground">Hiprotech</span>, <span className="text-foreground">Level Up</span> and branding content for <span className="text-foreground">Oicia</span>, <span className="text-foreground">Newvision Aesthetics</span>, <span className="text-foreground">Powdera</span>, <span className="text-foreground">Herbstonic</span>.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.15}>
-            <div className="flex items-start gap-4">
-              <span className="shrink-0 text-xl mt-0.5">👾</span>
-              <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
-                Don't hesitate to reach out. Let's talk design, freelance, college chaos, biryani vs pizza debates, or literally anything. I'm always up for a good conversation.
+                I've previously designed for <span className="text-foreground">Faucek</span> and designed social media content for <span className="text-foreground">Hiprotech</span>, <span className="text-foreground">Level Up</span> and branding content for <span className="text-foreground">Oicia</span>, <span className="text-foreground">Newvision Aesthetics</span>, <span className="text-foreground">Powdera</span>, <span className="text-foreground">Herbstonic</span>.
               </p>
             </div>
           </FadeIn>
