@@ -68,7 +68,7 @@ const BLUE = "hsl(225 78% 65%)";
 const LINES = [
   { text: "saumya kumari",                color: "foreground" as const },
   { text: "ui/ux designer",               color: "foreground" as const },
-  { text: "graphic design intern, faucek", color: "blue" as const },
+  { text: "design lead intern, faucek", color: "blue" as const },
   { text: "calmcash · ux case study",      color: "blue" as const },
 ];
 
