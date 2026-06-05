@@ -171,13 +171,25 @@ export default function App() {
           aria-label="Go to home"
           onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); window.location.reload(); }}
         >
-          <img
-            src={isDark ? "/logo.png" : "/logo-light.png"}
-            alt="SK Logo"
-            width="64"
-            height="64"
-            style={{ objectFit: 'contain' }}
-          />
+          <div style={{
+            width: 56,
+            height: 56,
+            borderRadius: '50%',
+            border: '1.5px solid currentColor',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            opacity: 0.9,
+          }}>
+            <img
+              src={isDark ? "/logo.png" : "/logo-light.png"}
+              alt="SK Logo"
+              width="44"
+              height="44"
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
         </button>
 
         {/* Right nav */}
