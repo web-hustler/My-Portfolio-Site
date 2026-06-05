@@ -157,11 +157,9 @@ export default function About() {
                 { icon: "🤞", text: "Love to capture emotions.. photography (hobby)" },
                 { icon: "🤞", text: "Biryani or pizza (can't choose).. foodie" },
               ].map(({ icon, text }, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <span className="inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-full border border-border mt-0.5 text-base" style={{ background: "var(--muted)" }}>
-                    {icon}
-                  </span>
-                  <span className="text-sm text-muted-foreground leading-relaxed mt-1" style={{ fontFamily: "var(--app-font-mono)" }}>{text}</span>
+                <div key={i} className="flex items-center gap-4">
+                  <span className="shrink-0 text-2xl">{icon}</span>
+                  <span className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>{text}</span>
                 </div>
               ))}
             </div>
