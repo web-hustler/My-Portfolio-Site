@@ -164,10 +164,21 @@ export default function App() {
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full px-8 md:px-12 py-6 z-50 flex justify-between items-center">
-        {/* Logo */}
-        <div className="pointer-events-auto" data-testid="logo">
-          <img src="/logo.png" alt="Logo" width="64" height="64" style={{ objectFit: 'contain' }} />
-        </div>
+        {/* Logo — home button */}
+        <button
+          className="pointer-events-auto focus:outline-none"
+          data-testid="logo"
+          aria-label="Go to home"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          <img
+            src={isDark ? "/logo.png" : "/logo-light.png"}
+            alt="SK Logo"
+            width="64"
+            height="64"
+            style={{ objectFit: 'contain' }}
+          />
+        </button>
 
         {/* Right nav */}
         <div className="flex items-center gap-8 text-base pointer-events-auto" style={{ fontFamily: 'var(--app-font-mono)' }}>
