@@ -109,16 +109,16 @@ export default function About() {
             <div className="flex flex-col gap-5 text-sm leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
               <p className="font-medium text-base text-foreground">Hey.. happy to see you here.</p>
 
-              <p className="text-muted-foreground">
-                I'm <span className="text-foreground">Saumya Kumari</span>, I design, freelance, build and occasionally overthink things until they're good to-be perfect. Final-year B.TECH CSE undergrad student at BIT, Mesra.
+              <p className="text-foreground">
+                I'm Saumya Kumari, I design, freelance, build and occasionally overthink things until they're good to-be perfect. Final-year B.TECH CSE undergrad student at BIT, Mesra.
               </p>
 
-              <p className="text-muted-foreground">
-                I love creating scalable, accessible design systems to be used across products. I enjoy turning ideas to experiences that makes people to say, <span className="text-foreground italic">"that's really cool."</span>
+              <p className="text-foreground">
+                I love creating scalable, accessible design systems to be used across products. I enjoy turning ideas to experiences that makes people to say, <span className="italic">"that's really cool."</span>
               </p>
 
-              <p className="text-muted-foreground">
-                Additionally, I've somehow managed to get lead roles in 3 clubs/societies in my college. Presenting you — <span className="text-foreground">President, Megapixels · Vice President, Ignite · Manager, Esports</span>. Experiences that taught me how to lead teams, organize chaos and get things done.
+              <p className="text-foreground">
+                Additionally, I've somehow managed to get lead roles in 3 clubs/societies in my college. Presenting you — President, Megapixels · Vice President, Ignite · Manager, Esports. Experiences that taught me how to lead teams, organize chaos and get things done.
               </p>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function About() {
           <FadeIn delay={0.05}>
             <div className="flex items-start gap-4">
               <span className="shrink-0 text-xl mt-0.5">👾</span>
-              <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
+              <p className="text-sm text-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
                 Currently, I'm seeking internships, freelance projects and opportunities to create and make an impact. Also, making pocket money by freelancing and obviously ready and needed to expand it more.
               </p>
             </div>
@@ -138,8 +138,8 @@ export default function About() {
           <FadeIn delay={0.1}>
             <div className="flex items-start gap-4">
               <span className="shrink-0 text-xl mt-0.5">👾</span>
-              <p className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
-                I've previously designed for <span className="text-foreground">Faucek</span> and designed social media content for <span className="text-foreground">Hiprotech</span>, <span className="text-foreground">Level Up</span> and branding content for <span className="text-foreground">Oicia</span>, <span className="text-foreground">Newvision Aesthetics</span>, <span className="text-foreground">Powdera</span>, <span className="text-foreground">Herbstonic</span>.
+              <p className="text-sm text-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
+                I've previously designed for Faucek and designed social media content for Hiprotech, Level Up and branding content for Oicia, Newvision Aesthetics, Powdera, Herbstonic.
               </p>
             </div>
           </FadeIn>
@@ -159,7 +159,7 @@ export default function About() {
               ].map(({ icon, text }, i) => (
                 <div key={i} className="flex items-center gap-4">
                   <span className="shrink-0 text-2xl">{icon}</span>
-                  <span className="text-sm text-muted-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>{text}</span>
+                  <span className="text-sm text-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>{text}</span>
                 </div>
               ))}
             </div>
@@ -179,10 +179,10 @@ export default function About() {
                 <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
                   <div>
                     <p className="font-medium text-foreground" style={{ fontFamily: "var(--app-font-mono)" }}>{school}</p>
-                    <p className="text-sm text-muted-foreground" style={{ fontFamily: "var(--app-font-mono)" }}>{degree}</p>
+                    <p className="text-sm text-foreground" style={{ fontFamily: "var(--app-font-mono)" }}>{degree}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-xs text-muted-foreground uppercase tracking-widest" style={{ fontFamily: "var(--app-font-mono)" }}>{year}</p>
+                    <p className="text-xs text-foreground uppercase tracking-widest" style={{ fontFamily: "var(--app-font-mono)" }}>{year}</p>
                     <p className="text-sm font-medium" style={{ fontFamily: "var(--app-font-mono)" }}>{score}</p>
                   </div>
                 </div>
