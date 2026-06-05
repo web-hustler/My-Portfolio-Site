@@ -166,7 +166,7 @@ export default function App() {
       <nav className="fixed top-0 left-0 w-full px-8 md:px-12 py-6 z-50 flex justify-between items-center">
         {/* Logo */}
         <div className="pointer-events-auto" data-testid="logo">
-          <img src="/logo.png" alt="Logo" width="28" height="28" style={{ objectFit: 'contain' }} />
+          <img src="/logo.png" alt="Logo" width="40" height="40" style={{ objectFit: 'contain' }} />
         </div>
 
         {/* Right nav */}
