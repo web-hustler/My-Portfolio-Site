@@ -1,56 +1,10 @@
-import { motion, animate, useMotionValue, useSpring } from "framer-motion";
-import { ArrowUpRight, Mail, Linkedin, Download, ChevronDown } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { ArrowUpRight, Mail, Linkedin, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Footer from "./components/Footer";
 // @ts-ignore - The alias is provided by the environment
-import resumePdf from "@assets/Saumya_Resume_1780509559658.pdf";
 
-function CustomCursor({ scrollPct }: { scrollPct: number }) {
-  const mouseX = useMotionValue(-200);
-  const mouseY = useMotionValue(-200);
-  const springX = useSpring(mouseX, { stiffness: 140, damping: 20, mass: 0.5 });
-  const springY = useSpring(mouseY, { stiffness: 140, damping: 20, mass: 0.5 });
-
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, [mouseX, mouseY]);
-
-  return (
-    <motion.div
-      style={{
-        x: springX,
-        y: springY,
-        position: "fixed",
-        top: 0,
-        left: 0,
-        pointerEvents: "none",
-        zIndex: 9999,
-        display: "flex",
-        alignItems: "center",
-        gap: "6px",
-        transform: "translate(4px, 4px)",
-      }}
-    >
-      <span style={{ fontSize: 38, lineHeight: 1, userSelect: "none" }}>👾</span>
-      <span
-        style={{
-          fontFamily: "var(--app-font-mono)",
-          fontSize: 16,
-          color: "#ffffff",
-          userSelect: "none",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {scrollPct}%
-      </span>
-    </motion.div>
-  );
-}
 
 const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
   <motion.div
@@ -78,9 +32,7 @@ const CHAR_SPEED = 38; // ms per character
 export default function App() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollPct, setScrollPct] = useState(0);
   const [isDark, setIsDark] = useState(true);
-  // displayed[i] = the string shown so far for line i
   const [displayed, setDisplayed] = useState(["", "", "", ""]);
   const [started, setStarted] = useState(false);
 
@@ -92,23 +44,11 @@ export default function App() {
       document.documentElement.classList.remove("dark");
     }
   }, [isDark]);
-  // Use refs for mutable loop state to avoid closure/strict-mode issues
+
   const lineIdxRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Scroll progress percentage
-  useEffect(() => {
-    const update = () => {
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = scrollable > 0 ? Math.round((window.scrollY / scrollable) * 100) : 0;
-      setScrollPct(pct);
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
-
-  // Kick off typewriter after a short delay (no loading counter needed)
+  // Kick off typewriter after a short delay
   useEffect(() => {
     const t = setTimeout(() => setStarted(true), 600);
     return () => clearTimeout(t);
@@ -132,10 +72,8 @@ export default function App() {
       });
 
       if (nextChar < fullText.length) {
-        // more chars in this line
         timerRef.current = setTimeout(() => typeChar(lineIdx, nextChar), CHAR_SPEED);
       } else {
-        // line done — move to next after a pause
         const nextLine = lineIdx + 1;
         if (nextLine < LINES.length) {
           timerRef.current = setTimeout(() => typeChar(nextLine, 0), 180);
@@ -152,20 +90,22 @@ export default function App() {
 
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href') as string);
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        const href = anchor.getAttribute('href');
+        if (href) {
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
       });
     });
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans cursor-none">
-      <CustomCursor scrollPct={scrollPct} />
+    <div ref={containerRef} className="min-h-screen bg-background text-foreground font-sans">
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full px-8 md:px-12 py-6 z-50 flex justify-between items-center">
+      <nav className="fixed top-0 left-0 w-full px-4 sm:px-8 md:px-12 py-4 md:py-6 z-50 flex justify-between items-center bg-background/70 backdrop-blur-md border-b border-border/40">
         {/* Logo — home button */}
         <button
           className="pointer-events-auto focus:outline-none"
@@ -173,43 +113,32 @@ export default function App() {
           aria-label="Go to home"
           onClick={() => { navigate("/"); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         >
-          <div style={{
-            width: 56,
-            height: 56,
-            borderRadius: '50%',
-            border: '1.5px solid currentColor',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden',
-            opacity: 0.9,
-          }}>
+          <div className="w-11 h-11 md:w-16 md:h-16 lg:w-18 lg:h-18 border-[1.5px] border-current rounded-full flex items-center justify-center overflow-hidden opacity-90">
             <img
               src={isDark ? "/logo.png" : "/logo-light.png"}
               alt="SK Logo"
-              width="44"
-              height="44"
+              className="w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14"
               style={{ objectFit: 'contain' }}
             />
           </div>
         </button>
 
         {/* Right nav */}
-        <div className="flex items-center gap-8 text-base pointer-events-auto" style={{ fontFamily: 'var(--app-font-mono)' }}>
+        <div className="flex items-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 text-sm md:text-lg lg:text-xl pointer-events-auto" style={{ fontFamily: 'var(--app-font-mono)' }}>
           {/* Dark mode toggle */}
           <button
             onClick={() => setIsDark(d => !d)}
-            className="flex items-center gap-1.5 select-none transition-opacity hover:opacity-100 opacity-70 cursor-none"
+            className="flex items-center gap-1.5 select-none transition-opacity hover:opacity-100 opacity-70"
             aria-label="Toggle dark mode"
           >
             <span className="text-xs">{isDark ? "☽" : "☀"}</span>
-            <div className="w-8 h-4 rounded-full border border-muted-foreground flex items-center px-0.5 transition-all" style={{ justifyContent: isDark ? "flex-start" : "flex-end" }}>
-              <div className="w-3 h-3 rounded-full bg-foreground transition-all" />
+            <div className="w-8 h-4 md:w-10 md:h-5 rounded-full border border-muted-foreground flex items-center px-0.5 transition-all" style={{ justifyContent: isDark ? "flex-start" : "flex-end" }}>
+              <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-foreground transition-all" />
             </div>
           </button>
-          <a href="#work" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-work">work</a>
-          <button onClick={() => navigate("/about")} className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-about">about</button>
-          <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-resume">resume</a>
+          <a href="#work" className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors" data-testid="nav-work">work</a>
+          <button onClick={() => navigate("/about")} className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors" data-testid="nav-about">about</button>
+          <a href="https://drive.google.com/file/d/1cVDzfd44xkL8TPUypRggdEhUfxoRmRRr/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors" data-testid="nav-resume">resume</a>
         </div>
       </nav>
 
@@ -218,18 +147,16 @@ export default function App() {
 
         {/* Centered text block */}
         <div
-          className="flex flex-col items-center text-center"
+          className="flex flex-col items-center text-center px-4"
           style={{ fontFamily: 'var(--app-font-mono)' }}
         >
           {LINES.map((line, i) => {
             const text = displayed[i];
             const isDone = text === line.text;
             const isTyping = text.length > 0 && !isDone;
-            // Show cursor on the actively-typing line, or on the next line waiting to start
             const prevDone = i === 0 || displayed[i - 1] === LINES[i - 1].text;
             const isCurrent = (isTyping) || (prevDone && !isDone && started && text.length === 0);
 
-            // Don't render a line until the previous one is done
             if (!started) return null;
             if (text.length === 0 && !prevDone) return null;
 
@@ -238,7 +165,7 @@ export default function App() {
             return (
               <p
                 key={i}
-                className="text-xl md:text-2xl lg:text-3xl leading-loose tracking-wide flex items-center"
+                className="text-base sm:text-xl md:text-3xl lg:text-4xl leading-loose lg:leading-loose tracking-wide flex items-center flex-wrap justify-center"
                 style={{ color: textColor, minHeight: "1.8em" }}
               >
                 {text}
@@ -278,9 +205,9 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: '80vh' }}>
 
           {/* ── CalmCash card ── */}
-          <a
-            href="#"
-            className="group relative overflow-hidden flex flex-col justify-end cursor-none"
+          <button
+            onClick={() => navigate("/calmcash")}
+            className="group relative overflow-hidden flex flex-col justify-end text-left w-full focus:outline-none"
             style={{ minHeight: '70vh' }}
             data-testid="card-calmcash"
           >
@@ -322,21 +249,21 @@ export default function App() {
             <div className="absolute inset-0 bg-black/60 group-hover:bg-black/20 transition-all duration-500" />
             {/* Content */}
             <div className="relative z-10 p-8 md:p-12">
-              <p className="text-xs uppercase tracking-widest text-white/50 mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className="text-xs uppercase tracking-widest text-white mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
                 ux case study // personal project
               </p>
-              <h2 className="font-serif text-4xl md:text-5xl text-white mb-3 leading-tight">CalmCash</h2>
+              <h2 className="font-mono text-4xl md:text-5xl text-white mb-3 leading-tight">CalmCash</h2>
               <div className="text-xl mb-4">💸 ✨</div>
-              <p className="text-sm text-white/60 max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className="text-sm text-white max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
                 fintech // built Calm AI to detect spending patterns and recommend smarter financial decisions.
               </p>
             </div>
-          </a>
+          </button>
 
           {/* ── Faucek card ── */}
           <a
             href="#"
-            className="group relative overflow-hidden flex flex-col justify-end cursor-none"
+            className="group relative overflow-hidden flex flex-col justify-end"
             style={{ minHeight: '70vh' }}
             data-testid="card-faucek"
           >
@@ -375,12 +302,12 @@ export default function App() {
             <div className="absolute inset-0 bg-black/65 group-hover:bg-black/20 transition-all duration-500" />
             {/* Content */}
             <div className="relative z-10 p-8 md:p-12">
-              <p className="text-xs uppercase tracking-widest text-white/50 mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className="text-xs uppercase tracking-widest text-white mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
                 graphic design // internship
               </p>
-              <h2 className="font-serif text-4xl md:text-5xl text-white mb-3 leading-tight">Faucek</h2>
+              <h2 className="font-mono text-4xl md:text-5xl text-white mb-3 leading-tight">Faucek</h2>
               <div className="text-xl mb-4">🎨 ✦</div>
-              <p className="text-sm text-white/60 max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className="text-sm text-white max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
                 branding // visual experiences across social media, presentations and marketing campaigns.
               </p>
             </div>
@@ -390,37 +317,7 @@ export default function App() {
       </section>
 
       {/* Footer / Contact */}
-      <footer id="contact" className="py-24 md:py-32 px-6 md:px-12 lg:px-24">
-        <div className="max-w-6xl mx-auto w-full flex flex-col items-center text-center">
-          <FadeIn>
-            <p className="text-sm uppercase tracking-widest font-medium mb-8">Let's create together</p>
-            <a 
-              href="mailto:saumyakumari794@gmail.com" 
-              className="font-serif text-3xl md:text-5xl lg:text-7xl hover:opacity-70 transition-opacity inline-flex items-center gap-4 group"
-              data-testid="link-email"
-            >
-              Get in touch
-              <ArrowUpRight className="w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
-            </a>
-          </FadeIn>
-
-          <FadeIn delay={0.2} className="w-full mt-32 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Saumya Kumari. All rights reserved.
-            </div>
-            <div className="flex gap-6">
-              <a href="mailto:saumyakumari794@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="social-email">
-                <span className="sr-only">Email</span>
-                <Mail className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="social-linkedin">
-                <span className="sr-only">LinkedIn</span>
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </div>
-          </FadeIn>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

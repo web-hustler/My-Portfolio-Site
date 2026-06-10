@@ -2,37 +2,75 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // @ts-ignore
-import resumePdf from "@assets/Saumya_Resume_1780509559658.pdf";
 
-const BLUE = "hsl(225 78% 65%)";
+import Footer from "../components/Footer";
+
+const SpaceInvaderIcon = ({ className = "" }: { className?: string }) => (
+  <svg
+    width="20"
+    height="15"
+    viewBox="0 0 11 8"
+    fill="currentColor"
+    className={`shrink-0 ${className}`}
+  >
+    {/* Row 0: ..1000001.. */}
+    <rect x="2" y="0" width="1" height="1" />
+    <rect x="8" y="0" width="1" height="1" />
+    {/* Row 1: ...10001... */}
+    <rect x="3" y="1" width="1" height="1" />
+    <rect x="7" y="1" width="1" height="1" />
+    {/* Row 2: ..1111111.. */}
+    <rect x="2" y="2" width="7" height="1" />
+    {/* Row 3: .110111011. */}
+    <rect x="1" y="3" width="2" height="1" />
+    <rect x="4" y="3" width="3" height="1" />
+    <rect x="8" y="3" width="2" height="1" />
+    {/* Row 4: 11111111111 */}
+    <rect x="0" y="4" width="11" height="1" />
+    {/* Row 5: 1.1111111.1 */}
+    <rect x="0" y="5" width="1" height="1" />
+    <rect x="2" y="5" width="7" height="1" />
+    <rect x="10" y="5" width="1" height="1" />
+    {/* Row 6: 1.1.....1.1 */}
+    <rect x="0" y="6" width="1" height="1" />
+    <rect x="2" y="6" width="1" height="1" />
+    <rect x="8" y="6" width="1" height="1" />
+    <rect x="10" y="6" width="1" height="1" />
+    {/* Row 7: ...11.11... */}
+    <rect x="3" y="7" width="2" height="1" />
+    <rect x="6" y="7" width="2" height="1" />
+  </svg>
+);
 
 const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={{ opacity: 0, y: 15 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-60px" }}
-    transition={{ duration: 0.6, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+    viewport={{ once: true, margin: "-40px" }}
+    transition={{ duration: 0.5, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
     className={className}
   >
     {children}
   </motion.div>
 );
 
-const Avatar = () => (
-  <span
-    className="inline-flex items-center justify-center shrink-0 w-7 h-7 rounded-full border border-border text-xs overflow-hidden"
-    style={{ background: "var(--muted)" }}
-  >
-    <img src={isDark => isDark ? "/logo.png" : "/logo-light.png"} alt="" className="w-full h-full object-contain" />
-  </span>
-);
-
-const Bullet = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex items-start gap-3 text-sm leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
-    <span className="inline-flex items-center justify-center shrink-0 w-6 h-6 rounded-full border border-border mt-0.5 text-xs" style={{ background: "var(--muted)" }}>✦</span>
-    <span className="text-muted-foreground">{children}</span>
-  </div>
-);
+const BrandLink = ({ href, children }: { href?: string; children: React.ReactNode }) => {
+  const baseClasses = "relative inline-block font-semibold text-violet-400 dark:text-violet-300 transition-all duration-300";
+  const hoverStyle = "after:absolute after:left-0 after:bottom-[-2px] after:h-[1.5px] after:w-0 after:bg-violet-400 dark:after:bg-violet-300 after:transition-all after:duration-300 hover:after:w-full hover:text-violet-300 dark:hover:text-violet-200 hover:drop-shadow-[0_0_6px_rgba(167,139,250,0.5)]";
+  if (!href) {
+    return <span className={`${baseClasses} cursor-default`}>{children}</span>;
+  }
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${baseClasses} ${hoverStyle}`}
+    >
+      {children}
+    </a>
+  );
+};
 
 export default function About() {
   const navigate = useNavigate();
@@ -56,137 +94,153 @@ export default function About() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
+    <div className="min-h-screen bg-background text-foreground font-mono transition-colors duration-300">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full px-8 md:px-12 py-6 z-50 flex justify-between items-center">
+      <nav className="fixed top-0 left-0 w-full px-4 sm:px-8 md:px-12 py-4 md:py-6 z-50 flex justify-between items-center bg-background/70 backdrop-blur-md border-b border-border/40">
         <button
           className="pointer-events-auto focus:outline-none"
           aria-label="Go to home"
           onClick={() => navigate("/")}
         >
-          <div style={{
-            width: 56, height: 56, borderRadius: "50%",
-            border: "1.5px solid currentColor",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            overflow: "hidden", opacity: 0.9,
-          }}>
-            <img src={isDark ? "/logo.png" : "/logo-light.png"} alt="SK Logo" width="44" height="44" style={{ objectFit: "contain" }} />
+          <div className="w-11 h-11 md:w-16 md:h-16 lg:w-18 lg:h-18 border-[1.5px] border-current rounded-full flex items-center justify-center overflow-hidden opacity-90">
+            <img src={isDark ? "/logo.png" : "/logo-light.png"} alt="SK Logo" className="w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14" style={{ objectFit: "contain" }} />
           </div>
         </button>
 
-        <div className="flex items-center gap-8 text-base" style={{ fontFamily: "var(--app-font-mono)" }}>
+        <div className="flex items-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 text-sm md:text-lg lg:text-xl">
           <button onClick={toggleDark} className="flex items-center gap-1.5 select-none transition-opacity hover:opacity-100 opacity-70" aria-label="Toggle dark mode">
             <span className="text-xs">{isDark ? "☽" : "☀"}</span>
-            <div className="w-8 h-4 rounded-full border border-muted-foreground flex items-center px-0.5 transition-all" style={{ justifyContent: isDark ? "flex-start" : "flex-end" }}>
-              <div className="w-3 h-3 rounded-full bg-foreground transition-all" />
+            <div className="w-8 h-4 md:w-10 md:h-5 rounded-full border border-muted-foreground flex items-center px-0.5 transition-all" style={{ justifyContent: isDark ? "flex-start" : "flex-end" }}>
+              <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-foreground transition-all" />
             </div>
           </button>
-          <button onClick={() => navigate("/")} className="text-muted-foreground hover:text-foreground transition-colors">work</button>
-          <button onClick={() => navigate("/about")} className="text-foreground transition-colors">about</button>
-          <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="text-muted-foreground hover:text-foreground transition-colors">resume</a>
+          <button onClick={() => navigate("/")} className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">work</button>
+          <button onClick={() => navigate("/about")} className="text-foreground dark:text-white transition-colors">about</button>
+          <a href="https://drive.google.com/file/d/1cVDzfd44xkL8TPUypRggdEhUfxoRmRRr/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">resume</a>
         </div>
       </nav>
 
       {/* Main content */}
-      <main className="max-w-4xl mx-auto px-6 md:px-12 pt-36 pb-24">
+      <main className="w-full max-w-6xl mx-auto px-4 sm:px-8 md:px-12 pt-56 pb-8 text-sm md:text-base leading-relaxed">
 
-        {/* Top: photo + intro */}
-        <FadeIn>
-          <div className="flex flex-col md:flex-row gap-10 md:gap-16 mb-16">
-            {/* Photo */}
-            <div className="shrink-0">
-              <div
-                className="w-44 h-52 md:w-52 md:h-64 border border-border rounded-sm flex items-center justify-center"
-                style={{ background: "var(--muted)" }}
-              >
-                <p className="text-xs text-muted-foreground text-center px-4 leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
-                  photo<br />coming<br />soon
-                </p>
+        {/* 2-Column Grid for Photo and Biography */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start">
+          
+          {/* Left Column: Photo */}
+          <div className="md:col-span-4">
+            <FadeIn delay={0.1}>
+              <div className="w-full max-w-[300px] mx-auto md:mx-0 overflow-hidden">
+                <img 
+                  src="/profile_mirror.png" 
+                  alt="Saumya Kumari mirror selfie" 
+                  className="w-full h-auto object-contain block"
+                />
               </div>
-            </div>
-
-            {/* Intro text */}
-            <div className="flex flex-col gap-5 text-sm leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
-              <p className="font-medium text-base text-foreground">Hey.. happy to see you here.</p>
-
-              <p className="text-foreground">
-                I'm Saumya Kumari, I design, freelance, build and occasionally overthink things until they're good to-be perfect. Final-year B.TECH CSE undergrad student at BIT, Mesra.
-              </p>
-
-              <p className="text-foreground">
-                I love creating scalable, accessible design systems to be used across products. I enjoy turning ideas to experiences that makes people to say, <span className="italic">"that's really cool."</span>
-              </p>
-
-              <p className="text-foreground">
-                Additionally, I've somehow managed to get lead roles in 3 clubs/societies in my college. Presenting you — President, Megapixels · Vice President, Ignite · Manager, Esports. Experiences that taught me how to lead teams, organize chaos and get things done.
-              </p>
-            </div>
+            </FadeIn>
           </div>
-        </FadeIn>
 
-        {/* Avatar-prefixed paragraphs */}
-        <div className="flex flex-col gap-6 mb-16">
-          <FadeIn delay={0.05}>
+          {/* Right Column: Main welcome & bio text */}
+          <div className="md:col-span-8 flex flex-col gap-6 text-foreground/90 dark:text-white">
+            <FadeIn delay={0.1}>
+              <h1 className="font-bold text-base md:text-lg lg:text-xl text-foreground dark:text-white mb-4">
+                Hey.. happy to see you here.
+              </h1>
+            </FadeIn>
+
+            <FadeIn delay={0.15}>
+              <p>
+                I'm Saumya Kumari, I design, freelance, build and occasionally overthink things until they're good to-be perfect.
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={0.2}>
+              <p>
+                Final-year B.TECH CSE undergrad student at BIT, Mesra. I love creating scalable, accessible design systems to be used across products.
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={0.25}>
+              <p>
+                I enjoy turning ideas to experiences that makes people to say, <span className="italic">"that's really cool."</span>
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={0.3}>
+              <p>
+                Additionally, I've somehow managed to get lead roles in 3 different clubs/societies in my college.
+              </p>
+            </FadeIn>
+
+            {/* Club Roles - styled as regular lines without border-left to match Figma */}
+            <FadeIn delay={0.35}>
+              <div className="my-2 flex flex-col gap-2 font-mono text-muted-foreground dark:text-white select-none">
+                <p>Presenting you,</p>
+                <p className="text-foreground dark:text-white font-semibold">President, Megapixels Club</p>
+                <p className="text-foreground dark:text-white font-semibold">Vice President, Ignite Club</p>
+                <p className="text-foreground dark:text-white font-semibold">Manager, Esports Club</p>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.4}>
+              <p>
+                Experiences that taught me how to lead teams, organize chaos <br className="hidden md:inline" /> and get things done.
+              </p>
+            </FadeIn>
+          </div>
+        </div>
+
+        {/* Middle Section: Space Invader text blocks */}
+        <div className="mt-12 md:mt-16 flex flex-col gap-8">
+          <FadeIn delay={0.15}>
             <div className="flex items-start gap-4">
-              <span className="shrink-0 text-xl mt-0.5">👾</span>
-              <p className="text-sm text-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
+              <span className="shrink-0 text-lg md:text-xl select-none mt-0.5">👾</span>
+              <p className="text-foreground/90 dark:text-white">
                 Currently, I'm seeking internships, freelance projects and opportunities to create and make an impact. Also, making pocket money by freelancing and obviously ready and needed to expand it more.
               </p>
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.1}>
+          <FadeIn delay={0.2}>
             <div className="flex items-start gap-4">
-              <span className="shrink-0 text-xl mt-0.5">👾</span>
-              <p className="text-sm text-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>
-                I've previously designed for Faucek and designed social media content for Hiprotech, Level Up and branding content for Oicia, Newvision Aesthetics, Powdera, Herbstonic.
+              <span className="shrink-0 text-lg md:text-xl select-none mt-0.5">👾</span>
+              <p className="text-foreground/90 dark:text-white">
+                I've previously designed for <BrandLink href="https://faucek.com/">Faucek</BrandLink> and designed social media content for <BrandLink href="https://hiprotech.org/">Hiprotech</BrandLink>, <BrandLink href="https://www.instagram.com/levelupglounge/?hl=en">Level Up</BrandLink> and branding content for <BrandLink href="https://oiciaindia.mystore.digital/">Oicia</BrandLink>, <BrandLink>Newvision Aesthetics</BrandLink>, <BrandLink>Powdera</BrandLink>, <BrandLink href="https://herbstonic.com/">Herbstonic</BrandLink>
               </p>
             </div>
           </FadeIn>
         </div>
 
-        {/* Currently up to */}
-        <FadeIn delay={0.2}>
-          <div className="border-t border-border pt-12">
-            <p className="text-xs uppercase tracking-widest mb-8 text-muted-foreground" style={{ fontFamily: "var(--app-font-mono)" }}>
-              what i'm currently up to
-            </p>
-            <div className="flex flex-col gap-5">
-              {[
-                { icon: "🤞", text: "Seeking internships/FTE opportunities to explore UI/UX and also Bengaluru a bit.." },
-                { icon: "🤞", text: "Love to capture emotions.. photography (hobby)" },
-                { icon: "🤞", text: "Biryani or pizza (can't choose).. foodie" },
-              ].map(({ icon, text }, i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <span className="shrink-0 text-2xl">{icon}</span>
-                  <span className="text-sm text-foreground leading-relaxed" style={{ fontFamily: "var(--app-font-mono)" }}>{text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </FadeIn>
-
-        {/* Education */}
-        <FadeIn delay={0.1}>
-          <div className="border-t border-border pt-12 mt-12">
-            <p className="text-xs uppercase tracking-widest mb-8 text-muted-foreground" style={{ fontFamily: "var(--app-font-mono)" }}>education</p>
-            <div className="flex flex-col gap-8">
-              {[
-                { school: "BIT Mesra (Off Campus Patna)", degree: "B.Tech in Computer Science Engineering", year: "2023 – Present", score: "CGPA: 8.4" },
-                { school: "St. Karen's High School", degree: "12th Grade, CBSE", year: "2021 – 2022", score: "89.6%" },
-                { school: "St. Karen's High School", degree: "10th Grade, CBSE", year: "2019 – 2020", score: "93.0%" },
-              ].map(({ school, degree, year, score }, i) => (
-                <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
-                  <div>
-                    <p className="font-medium text-foreground" style={{ fontFamily: "var(--app-font-mono)" }}>{school}</p>
-                    <p className="text-sm text-foreground" style={{ fontFamily: "var(--app-font-mono)" }}>{degree}</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <p className="text-xs text-foreground uppercase tracking-widest" style={{ fontFamily: "var(--app-font-mono)" }}>{year}</p>
-                    <p className="text-sm font-medium" style={{ fontFamily: "var(--app-font-mono)" }}>{score}</p>
-                  </div>
-                </div>
-              ))}
+        {/* Bottom Section: What I'm currently up to */}
+        <FadeIn delay={0.45}>
+          <div className="mt-12 md:mt-16 pt-8 border-t border-border/20">
+            <h2 className="font-bold text-muted-foreground dark:text-white mb-8 uppercase tracking-widest">
+              WHAT I'M CURRENTLY UPTO:
+            </h2>
+            <div className="flex flex-col gap-6">
+              <div className="flex items-start gap-4">
+                <span className="shrink-0 text-xl md:text-2xl select-none">🤞</span>
+                <p className="text-foreground/90 dark:text-white text-base md:text-lg">
+                  working on more case studies
+                </p>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="shrink-0 text-xl md:text-2xl select-none">🤞</span>
+                <p className="text-foreground/90 dark:text-white text-base md:text-lg">
+                  seeking internships/FTE opportunities to explore UI/UX and also Bengaluru a bit..
+                </p>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="shrink-0 text-xl md:text-2xl select-none">🤞</span>
+                <p className="text-foreground/90 dark:text-white text-base md:text-lg">
+                  love to capture emotions.. photography 📸 (hobby)
+                </p>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="shrink-0 text-xl md:text-2xl select-none">🤞</span>
+                <p className="text-foreground/90 dark:text-white text-base md:text-lg">
+                  biryani or pizza.. can't choose (foodie)
+                </p>
+              </div>
             </div>
           </div>
         </FadeIn>
@@ -194,12 +248,7 @@ export default function About() {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 px-6 md:px-12 border-t border-border">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground" style={{ fontFamily: "var(--app-font-mono)" }}>
-          <span>© {new Date().getFullYear()} Saumya Kumari. All rights reserved.</span>
-          <a href={resumePdf} download="Saumya_Kumari_Resume.pdf" className="hover:text-foreground transition-colors">Download Resume ↓</a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
