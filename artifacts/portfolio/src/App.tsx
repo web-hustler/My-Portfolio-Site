@@ -249,21 +249,21 @@ export default function App() {
             <div className="absolute inset-0 bg-black/60 group-hover:bg-black/20 transition-all duration-500" />
             {/* Content */}
             <div className="relative z-10 p-8 md:p-12">
-              <p className="text-xs uppercase tracking-widest text-white mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className="text-sm sm:text-base uppercase tracking-widest text-white/90 mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
                 ux case study // personal project
               </p>
-              <h2 className="font-mono text-4xl md:text-5xl text-white mb-3 leading-tight">CalmCash</h2>
-              <div className="text-xl mb-4">💸 ✨</div>
-              <p className="text-sm text-white max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <h2 className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-3 leading-tight font-medium">CalmCash</h2>
+              <div className="text-2xl sm:text-3xl mb-4">💸 ✨</div>
+              <p className="text-base sm:text-lg md:text-xl text-white max-w-md sm:max-w-lg md:max-w-xl leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
                 fintech // built Calm AI to detect spending patterns and recommend smarter financial decisions.
               </p>
             </div>
           </button>
 
           {/* ── Faucek card ── */}
-          <a
-            href="#"
-            className="group relative overflow-hidden flex flex-col justify-end"
+          <button
+            onClick={() => navigate("/faucek")}
+            className="group relative overflow-hidden flex flex-col justify-end text-left w-full focus:outline-none"
             style={{ minHeight: '70vh' }}
             data-testid="card-faucek"
           >
@@ -302,16 +302,16 @@ export default function App() {
             <div className="absolute inset-0 bg-black/65 group-hover:bg-black/20 transition-all duration-500" />
             {/* Content */}
             <div className="relative z-10 p-8 md:p-12">
-              <p className="text-xs uppercase tracking-widest text-white mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className="text-sm sm:text-base uppercase tracking-widest text-white/90 mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
                 graphic design // internship
               </p>
-              <h2 className="font-mono text-4xl md:text-5xl text-white mb-3 leading-tight">Faucek</h2>
-              <div className="text-xl mb-4">🎨 ✦</div>
-              <p className="text-sm text-white max-w-sm leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <h2 className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-3 leading-tight font-medium">Faucek</h2>
+              <div className="text-2xl sm:text-3xl mb-4">🎨 ✦</div>
+              <p className="text-base sm:text-lg md:text-xl text-white max-w-md sm:max-w-lg md:max-w-xl leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
                 branding // visual experiences across social media, presentations and marketing campaigns.
               </p>
             </div>
-          </a>
+          </button>
 
         </div>
       </section>

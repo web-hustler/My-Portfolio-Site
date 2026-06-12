@@ -22,7 +22,7 @@ export default function Footer() {
               <p>keep getting better.</p>
               <p>always learning, always happy.</p>
               <p className="mt-1">
-                vibe coded with <span className="hover:scale-110 inline-block transition-transform duration-300">🤍</span>
+                designed with true <span className="hover:scale-110 inline-block transition-transform duration-300">❤️</span>
               </p>
             </div>
           </motion.div>
