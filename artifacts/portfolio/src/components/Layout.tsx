@@ -1,18 +1,15 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { useIsMobile } from "../hooks/use-mobile";
 
 function CustomCursor({ displayPct }: { displayPct: number }) {
   const mouseX = useMotionValue(-200);
   const mouseY = useMotionValue(-200);
   
-  const EMOJI_SIZE = 52; 
-  const TEXT_SIZE = 22;  
-  const MIN_DISTANCE = EMOJI_SIZE + 36; // Safety space around the emoji (88px)
-
-  // Default resting offset (to the right, slightly down)
-  const REST_X = MIN_DISTANCE;
-  const REST_Y = 14;
+  const isMobile = useIsMobile();
+  const EMOJI_SIZE = isMobile ? 32 : 52; 
+  const TEXT_SIZE = isMobile ? 14 : 22;  
 
   // Springs configured with realistic weight/inertia (mass: 0.35) for a natural trailing swing
   const springX = useSpring(mouseX, { stiffness: 180, damping: 24, mass: 0.35 });
@@ -20,33 +17,45 @@ function CustomCursor({ displayPct }: { displayPct: number }) {
 
   // Compute text X coordinate: blends lag vector with resting offset to trail dynamically in 360 deg
   const textX = useTransform([springX, springY, mouseX, mouseY], ([sX, sY, mX, mY]) => {
+    const isMobileSize = typeof window !== "undefined" && window.innerWidth < 768;
+    const emojiSize = isMobileSize ? 32 : 52;
+    const minDistance = emojiSize + (isMobileSize ? 20 : 36);
+    const restX = minDistance;
+    const restY = isMobileSize ? 8 : 14;
+
     const dx = (sX as number) - (mX as number);
     const dy = (sY as number) - (mY as number);
     
     // Scale the trailing vector weight to feel extra smooth and pronounced during movement
     const weight = 1.8;
-    const vx = dx * weight + REST_X;
-    const vy = dy * weight + REST_Y;
+    const vx = dx * weight + restX;
+    const vy = dy * weight + restY;
     
     const len = Math.sqrt(vx * vx + vy * vy);
-    if (len < 0.1) return (mX as number) + REST_X;
+    if (len < 0.1) return (mX as number) + restX;
     
-    return (mX as number) + (vx / len) * MIN_DISTANCE;
+    return (mX as number) + (vx / len) * minDistance;
   });
 
   // Compute text Y coordinate
   const textY = useTransform([springX, springY, mouseX, mouseY], ([sX, sY, mX, mY]) => {
+    const isMobileSize = typeof window !== "undefined" && window.innerWidth < 768;
+    const emojiSize = isMobileSize ? 32 : 52;
+    const minDistance = emojiSize + (isMobileSize ? 20 : 36);
+    const restX = minDistance;
+    const restY = isMobileSize ? 8 : 14;
+
     const dx = (sX as number) - (mX as number);
     const dy = (sY as number) - (mY as number);
     
     const weight = 1.8;
-    const vx = dx * weight + REST_X;
-    const vy = dy * weight + REST_Y;
+    const vx = dx * weight + restX;
+    const vy = dy * weight + restY;
     
     const len = Math.sqrt(vx * vx + vy * vy);
-    if (len < 0.1) return (mY as number) + REST_Y;
+    if (len < 0.1) return (mY as number) + restY;
     
-    return (mY as number) + (vy / len) * MIN_DISTANCE;
+    return (mY as number) + (vy / len) * minDistance;
   });
 
   const [hasHover, setHasHover] = useState(true);
@@ -238,10 +247,12 @@ function ParticleTrail() {
 
     const addParticles = (x: number, y: number, count: number, speedMultiplier = 1) => {
       const isDark = document.documentElement.classList.contains("dark");
+      const isMobileSize = typeof window !== "undefined" && window.innerWidth < 768;
+      const offset = isMobileSize ? 16 : 26;
       for (let i = 0; i < count; i++) {
-        // Spawn behind the emoji center (approx 26px offset to center of 52px emoji)
-        const emojiCenterX = x + 26;
-        const emojiCenterY = y + 26;
+        // Spawn behind the emoji center
+        const emojiCenterX = x + offset;
+        const emojiCenterY = y + offset;
         
         let color = "";
         if (isDark) {
