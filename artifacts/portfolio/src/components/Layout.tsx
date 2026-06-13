@@ -3,8 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useIsMobile } from "../hooks/use-mobile";
 
-const ZOOM_FACTOR = 0.75;
-
 function CustomCursor({ displayPct }: { displayPct: number }) {
   const mouseX = useMotionValue(-200);
   const mouseY = useMotionValue(-200);
@@ -20,10 +18,10 @@ function CustomCursor({ displayPct }: { displayPct: number }) {
   // Compute text X coordinate: blends lag vector with resting offset to trail dynamically in 360 deg
   const textX = useTransform([springX, springY, mouseX, mouseY], ([sX, sY, mX, mY]) => {
     const isMobileSize = typeof window !== "undefined" && window.innerWidth < 768;
-    const emojiSize = (isMobileSize ? 32 : 52) / ZOOM_FACTOR;
-    const minDistance = emojiSize + (isMobileSize ? 20 : 36) / ZOOM_FACTOR;
+    const emojiSize = isMobileSize ? 32 : 52;
+    const minDistance = emojiSize + (isMobileSize ? 20 : 36);
     const restX = minDistance;
-    const restY = (isMobileSize ? 8 : 14) / ZOOM_FACTOR;
+    const restY = isMobileSize ? 8 : 14;
 
     const dx = (sX as number) - (mX as number);
     const dy = (sY as number) - (mY as number);
@@ -42,10 +40,10 @@ function CustomCursor({ displayPct }: { displayPct: number }) {
   // Compute text Y coordinate
   const textY = useTransform([springX, springY, mouseX, mouseY], ([sX, sY, mX, mY]) => {
     const isMobileSize = typeof window !== "undefined" && window.innerWidth < 768;
-    const emojiSize = (isMobileSize ? 32 : 52) / ZOOM_FACTOR;
-    const minDistance = emojiSize + (isMobileSize ? 20 : 36) / ZOOM_FACTOR;
+    const emojiSize = isMobileSize ? 32 : 52;
+    const minDistance = emojiSize + (isMobileSize ? 20 : 36);
     const restX = minDistance;
-    const restY = (isMobileSize ? 8 : 14) / ZOOM_FACTOR;
+    const restY = isMobileSize ? 8 : 14;
 
     const dx = (sX as number) - (mX as number);
     const dy = (sY as number) - (mY as number);
@@ -75,16 +73,16 @@ function CustomCursor({ displayPct }: { displayPct: number }) {
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
-      mouseX.set(e.clientX / ZOOM_FACTOR);
-      mouseY.set(e.clientY / ZOOM_FACTOR);
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
       setIsVisible(true);
     };
 
     const touchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
-        mouseX.set(e.touches[0].clientX / ZOOM_FACTOR);
+        mouseX.set(e.touches[0].clientX);
         // Offset Y upwards by 55px to keep it visible above the finger
-        mouseY.set((e.touches[0].clientY - 55) / ZOOM_FACTOR);
+        mouseY.set(e.touches[0].clientY - 55);
         setIsVisible(true);
       }
     };
@@ -241,8 +239,8 @@ function ParticleTrail() {
     let isOverInteractive = false;
 
     const resize = () => {
-      canvas.width = window.innerWidth / ZOOM_FACTOR;
-      canvas.height = window.innerHeight / ZOOM_FACTOR;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
     window.addEventListener("resize", resize);
     resize();
@@ -250,15 +248,11 @@ function ParticleTrail() {
     const addParticles = (x: number, y: number, count: number, speedMultiplier = 1) => {
       const isDark = document.documentElement.classList.contains("dark");
       const isMobileSize = typeof window !== "undefined" && window.innerWidth < 768;
-      const offset = (isMobileSize ? 16 : 26) / ZOOM_FACTOR;
-      
-      const adjustedX = x / ZOOM_FACTOR;
-      const adjustedY = y / ZOOM_FACTOR;
-
+      const offset = isMobileSize ? 16 : 26;
       for (let i = 0; i < count; i++) {
         // Spawn behind the emoji center
-        const emojiCenterX = adjustedX + offset;
-        const emojiCenterY = adjustedY + offset;
+        const emojiCenterX = x + offset;
+        const emojiCenterY = y + offset;
         
         let color = "";
         if (isDark) {
