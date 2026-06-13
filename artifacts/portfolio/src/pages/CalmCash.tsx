@@ -64,7 +64,7 @@ export default function CalmCash() {
           </button>
           <button onClick={() => navigate("/")} className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">work</button>
           <button onClick={() => navigate("/about")} className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">about</button>
-          <a href="https://drive.google.com/file/d/1cVDzfd44xkL8TPUypRggdEhUfxoRmRRr/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">resume</a>
+          <a href="https://drive.google.com/file/d/1WhE-EuyVZhdLJGV8PQZkGZ5_tCaRmc5d/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">resume</a>
         </div>
       </nav>
 

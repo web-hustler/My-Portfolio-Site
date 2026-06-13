@@ -138,7 +138,7 @@ export default function App() {
           </button>
           <a href="#work" className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors" data-testid="nav-work">work</a>
           <button onClick={() => navigate("/about")} className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors" data-testid="nav-about">about</button>
-          <a href="https://drive.google.com/file/d/1cVDzfd44xkL8TPUypRggdEhUfxoRmRRr/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors" data-testid="nav-resume">resume</a>
+          <a href="https://drive.google.com/file/d/1WhE-EuyVZhdLJGV8PQZkGZ5_tCaRmc5d/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors" data-testid="nav-resume">resume</a>
         </div>
       </nav>
 
@@ -195,7 +195,19 @@ export default function App() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <a href="#work" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="scroll-down">
-            <ChevronDown className="w-5 h-5" strokeWidth={1.5} />
+            <motion.div
+              animate={displayed[LINES.length - 1] === LINES[LINES.length - 1].text ? {
+                opacity: [0.3, 1, 0.3],
+                y: [0, 6, 0]
+              } : {}}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <ChevronDown className="w-7 h-7 md:w-8 md:h-8" strokeWidth={1.5} />
+            </motion.div>
           </a>
         </motion.div>
       </section>
@@ -211,50 +223,24 @@ export default function App() {
             style={{ minHeight: '70vh' }}
             data-testid="card-calmcash"
           >
-            {/* Background pattern */}
-            <div className="absolute inset-0" style={{ background: 'hsl(225 78% 14%)' }}>
-              <svg viewBox="0 0 800 700" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-                <rect width="800" height="700" fill="hsl(225 78% 14%)" />
-                {/* phone frame centre */}
-                <rect x="240" y="60" width="320" height="520" rx="32" fill="hsl(222 30% 9%)" stroke="hsl(225 78% 50%)" strokeWidth="2" opacity="0.9" />
-                <rect x="255" y="90" width="290" height="470" rx="18" fill="hsl(222 30% 12%)" />
-                <rect x="270" y="102" width="260" height="20" rx="4" fill="hsl(222 20% 16%)" />
-                <rect x="268" y="136" width="264" height="100" rx="12" fill="hsl(225 78% 40%)" />
-                <rect x="283" y="152" width="80" height="8" rx="4" fill="hsl(220 15% 95% / 0.5)" />
-                <rect x="283" y="170" width="140" height="16" rx="4" fill="hsl(220 15% 95% / 0.9)" />
-                <rect x="268" y="252" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
-                <circle cx="294" cy="276" r="14" fill="hsl(225 78% 35%)" />
-                <rect x="316" y="266" width="100" height="8" rx="4" fill="hsl(220 15% 85%)" />
-                <rect x="460" y="268" width="56" height="10" rx="4" fill="hsl(225 78% 65%)" />
-                <rect x="268" y="308" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
-                <circle cx="294" cy="332" r="14" fill="hsl(225 78% 28%)" />
-                <rect x="316" y="322" width="80" height="8" rx="4" fill="hsl(220 15% 85%)" />
-                <rect x="460" y="324" width="56" height="10" rx="4" fill="hsl(0 70% 65%)" />
-                <rect x="268" y="364" width="264" height="48" rx="8" fill="hsl(222 22% 18%)" />
-                <circle cx="294" cy="388" r="14" fill="hsl(225 78% 35%)" />
-                <rect x="316" y="378" width="120" height="8" rx="4" fill="hsl(220 15% 85%)" />
-                <rect x="460" y="380" width="56" height="10" rx="4" fill="hsl(225 78% 65%)" />
-                <rect x="268" y="430" width="264" height="52" rx="10" fill="hsl(222 22% 16%)" />
-                <circle cx="310" cy="456" r="8" fill="hsl(225 78% 58%)" />
-                <circle cx="360" cy="456" r="8" fill="hsl(222 22% 28%)" />
-                <circle cx="410" cy="456" r="8" fill="hsl(222 22% 28%)" />
-                <circle cx="460" cy="456" r="8" fill="hsl(222 22% 28%)" />
-                {/* decorative glows */}
-                <circle cx="90" cy="90" r="50" fill="hsl(225 78% 50% / 0.07)" />
-                <circle cx="710" cy="580" r="70" fill="hsl(225 78% 50% / 0.07)" />
-                <circle cx="700" cy="110" r="25" fill="hsl(225 78% 50% / 0.1)" />
-              </svg>
+            {/* Background Image */}
+            <div className="absolute inset-0 bg-zinc-900 transition-colors duration-500">
+              <img
+                src="/calmcash-thumbnail.png"
+                alt="CalmCash Thumbnail"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
-            {/* Dark overlay — lifts on hover */}
-            <div className="absolute inset-0 bg-black/60 group-hover:bg-black/20 transition-all duration-500" />
+            {/* Overlay — lifts on hover */}
+            <div className={`absolute inset-0 transition-all duration-500 ${isDark ? "bg-black/60 group-hover:bg-black/20" : "bg-white/80 group-hover:bg-black/45"}`} />
             {/* Content */}
             <div className="relative z-10 p-8 md:p-12">
-              <p className="text-sm sm:text-base uppercase tracking-widest text-white/90 mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className={`text-sm sm:text-base uppercase tracking-widest mb-3 transition-colors duration-500 ${isDark ? "text-white/90" : "text-slate-800 group-hover:text-white/90"}`} style={{ fontFamily: 'var(--app-font-mono)' }}>
                 ux case study // personal project
               </p>
-              <h2 className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-3 leading-tight font-medium">CalmCash</h2>
+              <h2 className={`font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 leading-tight font-medium transition-colors duration-500 ${isDark ? "text-white" : "text-slate-900 group-hover:text-white"}`}>CalmCash</h2>
               <div className="text-2xl sm:text-3xl mb-4">💸 ✨</div>
-              <p className="text-base sm:text-lg md:text-xl text-white max-w-md sm:max-w-lg md:max-w-xl leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className={`text-base sm:text-lg md:text-xl max-w-md sm:max-w-lg md:max-w-xl leading-relaxed transition-colors duration-500 ${isDark ? "text-white/90" : "text-slate-700 group-hover:text-white/90"}`} style={{ fontFamily: 'var(--app-font-mono)' }}>
                 fintech // built Calm AI to detect spending patterns and recommend smarter financial decisions.
               </p>
             </div>
@@ -267,47 +253,24 @@ export default function App() {
             style={{ minHeight: '70vh' }}
             data-testid="card-faucek"
           >
-            {/* Background geometric pattern */}
-            <div className="absolute inset-0" style={{ background: 'hsl(28 60% 18%)' }}>
-              <svg viewBox="0 0 800 700" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-                <rect width="800" height="700" fill="hsl(28 60% 18%)" />
-                {/* scattered geometric shapes */}
-                <polygon points="80,60 120,130 40,130" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.5" />
-                <rect x="200" y="50" width="50" height="50" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <circle cx="380" cy="90" r="28" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <polygon points="520,40 560,110 480,110" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.5" />
-                <rect x="640" y="55" width="45" height="45" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" transform="rotate(20,662,77)" />
-                <path d="M720,160 Q760,140 740,180 Q720,200 700,180 Q700,160 720,160" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <polygon points="50,240 90,310 10,310" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <circle cx="170" cy="280" r="22" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
-                <path d="M280,250 L280,320 M245,285 L315,285" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
-                <rect x="380" y="240" width="55" height="55" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <polygon points="520,220 565,295 475,295" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.5" />
-                <path d="M630,260 Q670,230 680,270 Q690,310 650,310 Q610,310 630,260" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <path d="M730,240 Q760,270 730,300 Q700,270 730,240" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <circle cx="90" cy="430" r="30" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
-                <polygon points="200,390 240,460 160,460" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.45" />
-                <rect x="320" y="400" width="48" height="48" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" transform="rotate(15,344,424)" />
-                <path d="M480,420 Q520,395 510,435 Q500,475 470,455 Q450,435 480,420" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <path d="M600,400 L630,440 L570,440 Z" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.45" />
-                <path d="M50,560 Q90,530 100,570 Q110,610 70,600 Q30,590 50,560" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <rect x="170" y="550" width="42" height="42" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
-                <polygon points="310,540 350,610 270,610" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-                <circle cx="450" cy="580" r="26" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
-                <path d="M560,550 L560,620 M525,585 L595,585" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.35" />
-                <rect x="650" y="545" width="50" height="50" fill="none" stroke="hsl(28 80% 70%)" strokeWidth="2.5" opacity="0.4" />
-              </svg>
+            {/* Background Image */}
+            <div className="absolute inset-0 bg-zinc-900 transition-colors duration-500">
+              <img
+                src="/faucek-thumbnail.png"
+                alt="Faucek Thumbnail"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
-            {/* Dark overlay — lifts on hover */}
-            <div className="absolute inset-0 bg-black/65 group-hover:bg-black/20 transition-all duration-500" />
+            {/* Overlay — lifts on hover */}
+            <div className={`absolute inset-0 transition-colors duration-500 ${isDark ? "bg-black/65 group-hover:bg-black/20" : "bg-white/80 group-hover:bg-black/45"}`} />
             {/* Content */}
             <div className="relative z-10 p-8 md:p-12">
-              <p className="text-sm sm:text-base uppercase tracking-widest text-white/90 mb-3" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className={`text-sm sm:text-base uppercase tracking-widest mb-3 transition-colors duration-500 ${isDark ? "text-white/90" : "text-amber-950/90 group-hover:text-white/90"}`} style={{ fontFamily: 'var(--app-font-mono)' }}>
                 graphic design // internship
               </p>
-              <h2 className="font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-3 leading-tight font-medium">Faucek</h2>
+              <h2 className={`font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 leading-tight font-medium transition-colors duration-500 ${isDark ? "text-white" : "text-amber-950 group-hover:text-white"}`}>Faucek</h2>
               <div className="text-2xl sm:text-3xl mb-4">🎨 ✦</div>
-              <p className="text-base sm:text-lg md:text-xl text-white max-w-md sm:max-w-lg md:max-w-xl leading-relaxed" style={{ fontFamily: 'var(--app-font-mono)' }}>
+              <p className={`text-base sm:text-lg md:text-xl max-w-md sm:max-w-lg md:max-w-xl leading-relaxed transition-colors duration-500 ${isDark ? "text-white/90" : "text-amber-900 group-hover:text-white/90"}`} style={{ fontFamily: 'var(--app-font-mono)' }}>
                 branding // visual experiences across social media, presentations and marketing campaigns.
               </p>
             </div>
