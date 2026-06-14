@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
+import { Button } from "../components/ui/button";
 // @ts-ignore
 
 import Footer from "../components/Footer";
@@ -125,6 +126,23 @@ export default function CalmCash() {
           <p className="text-base sm:text-xl leading-relaxed text-zinc-700 dark:text-white">
             Designed an AI-powered personal finance experience that automatically tracks expenses, identifies spending patterns and helps users make better financial decisions.
           </p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <Button
+              asChild
+              variant="outline"
+              className="group font-mono text-zinc-900 dark:text-white border-zinc-900/20 hover:border-zinc-900 dark:border-white/20 dark:hover:border-white transition-all duration-300 rounded-none bg-transparent hover:bg-zinc-900/5 dark:hover:bg-white/5 py-3 px-6 h-auto tracking-wider text-base"
+            >
+              <a
+                href="https://app.notion.com/p/CalmCash-UX-Case-Study-3607704ef4e081dfa866d730ad565582?source=copy_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2"
+              >
+                View Notion Case Study
+                <ExternalLink className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Button>
+          </div>
         </FadeIn>
 
         {/* Mockup image showcase with background removed and light mode layout backing */}
