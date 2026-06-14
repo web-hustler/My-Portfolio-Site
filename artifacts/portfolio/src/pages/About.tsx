@@ -102,8 +102,19 @@ export default function About() {
           aria-label="Go to home"
           onClick={() => navigate("/")}
         >
-          <div className="w-11 h-11 md:w-16 md:h-16 lg:w-18 lg:h-18 border-[1.5px] border-current rounded-full flex items-center justify-center overflow-hidden opacity-90">
-            <img src={isDark ? "/logo.png" : "/logo-light.png"} alt="SK Logo" className="w-full h-full" style={{ objectFit: "cover" }} />
+          <div className="w-11 h-11 md:w-16 md:h-16 lg:w-18 lg:h-18 border-[1.5px] border-current rounded-full relative overflow-hidden opacity-90">
+            <img
+              src="/logo.png"
+              alt="SK Logo Dark"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+              style={{ opacity: isDark ? 1 : 0 }}
+            />
+            <img
+              src="/logo-light.png"
+              alt="SK Logo Light"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+              style={{ opacity: isDark ? 0 : 1 }}
+            />
           </div>
         </button>
 
