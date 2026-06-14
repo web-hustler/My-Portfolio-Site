@@ -103,7 +103,7 @@ export default function About() {
           onClick={() => navigate("/")}
         >
           <div className="w-11 h-11 md:w-16 md:h-16 lg:w-18 lg:h-18 border-[1.5px] border-current rounded-full flex items-center justify-center overflow-hidden opacity-90">
-            <img src={isDark ? "/logo.png" : "/logo-light.png"} alt="SK Logo" className="w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14" style={{ objectFit: "contain" }} />
+            <img src={isDark ? "/logo.png" : "/logo-light.png"} alt="SK Logo" className="w-full h-full" style={{ objectFit: "cover" }} />
           </div>
         </button>
 

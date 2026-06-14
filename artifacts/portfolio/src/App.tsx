@@ -117,8 +117,8 @@ export default function App() {
             <img
               src={isDark ? "/logo.png" : "/logo-light.png"}
               alt="SK Logo"
-              className="w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14"
-              style={{ objectFit: 'contain' }}
+              className="w-full h-full"
+              style={{ objectFit: 'cover' }}
             />
           </div>
         </button>
