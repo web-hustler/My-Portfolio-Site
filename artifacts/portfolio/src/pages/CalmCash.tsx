@@ -109,11 +109,11 @@ export default function CalmCash() {
             </div>
             <div>
               <p className="text-base text-zinc-500 dark:text-white uppercase tracking-widest mb-1.5 font-mono">timeline :</p>
-              <p className="text-lg sm:text-xl md:text-2xl text-zinc-900 dark:text-white font-mono">3-4 weeks (May 2026)</p>
+              <p className="text-lg sm:text-xl md:text-2xl text-zinc-900 dark:text-white font-mono">5-6 weeks (May - June 2026)</p>
             </div>
             <div>
               <p className="text-base text-zinc-500 dark:text-white uppercase tracking-widest mb-1.5 font-mono">role :</p>
-              <p className="text-lg sm:text-xl md:text-2xl text-zinc-900 dark:text-white font-mono">user centered design</p>
+              <p className="text-lg sm:text-xl md:text-2xl text-zinc-900 dark:text-white font-mono">product designer (ui/ux)</p>
             </div>
           </div>
         </FadeIn>
@@ -349,6 +349,217 @@ export default function CalmCash() {
             alt="CalmCash Design System"
             className="w-full max-w-5xl h-auto object-contain rounded-sm"
           />
+        </FadeIn>
+
+        {/* Design Decisions Section */}
+        <FadeIn delay={0.1} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 pt-16 border-t border-border/40 mt-8">
+          <div className="md:col-span-1">
+            <h2 className="font-mono text-4xl sm:text-5xl font-normal uppercase tracking-wider text-zinc-900 dark:text-white">
+              Design<br />Decisions
+            </h2>
+          </div>
+          <div className="md:col-span-2 flex flex-col gap-10 text-base sm:text-xl leading-relaxed text-zinc-700 dark:text-white font-mono">
+            <div className="flex flex-col gap-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+                1. Introducing AI Insights:
+              </h3>
+              <p className="text-zinc-700 dark:text-white/80">
+                Traditional budgeting requires users to manually set limits and track spending.
+              </p>
+              <div className="flex flex-col gap-2">
+                <p className="text-zinc-950 dark:text-white font-bold">Decision:</p>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Integrated AI-powered insights that proactively identify spending patterns and provide recommendations.
+                </p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-zinc-950 dark:text-white font-bold">Why:</p>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Users often understand what they spent but struggle to understand why their money disappears each month.
+                </p>
+              </div>
+              <p className="text-zinc-500 dark:text-white/60 italic">
+                The AI layer transforms raw financial data into actionable guidance.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+                2. Goal-Based Financial Planning:
+              </h3>
+              <p className="text-zinc-700 dark:text-white/80">
+                Many financial apps focus heavily on transactions while neglecting long-term financial motivation.
+              </p>
+              <div className="flex flex-col gap-2">
+                <p className="text-zinc-950 dark:text-white font-bold">Decision:</p>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Added dedicated goal-tracking modules for savings, investments, emergency funds, and personal goals.
+                </p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-zinc-950 dark:text-white font-bold">Why:</p>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Research suggests users are more likely to maintain financial discipline when saving toward specific outcomes rather than abstract numbers.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+                3. Explainable AI Over Automated Decisions:
+              </h3>
+              <p className="text-zinc-700 dark:text-white/80">
+                Fully automated financial decisions can create trust concerns.
+              </p>
+              <div className="flex flex-col gap-2">
+                <p className="text-zinc-950 dark:text-white font-bold">Decision:</p>
+                <p className="text-zinc-700 dark:text-white/80">
+                  AI provides recommendations and insights but leaves decision-making to the user.
+                </p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-zinc-950 dark:text-white font-bold">Why:</p>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Users wanted guidance and transparency while maintaining control over their finances.
+                </p>
+              </div>
+              <p className="text-zinc-500 dark:text-white/60 italic">
+                This balance helps build trust in AI-assisted financial management.
+              </p>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Technical Constraints Section */}
+        <FadeIn delay={0.1} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 pt-16 border-t border-border/40 mt-8">
+          <div className="md:col-span-1">
+            <h2 className="font-mono text-4xl sm:text-5xl font-normal uppercase tracking-wider text-zinc-900 dark:text-white">
+              Technical<br />Constraints
+            </h2>
+          </div>
+          <div className="md:col-span-2 flex flex-col gap-8 text-base sm:text-xl leading-relaxed text-zinc-700 dark:text-white font-mono">
+            <div className="flex flex-col gap-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+                1. Mobile-First Experience
+              </h3>
+              <p className="text-zinc-700 dark:text-white/80">
+                The solution must work effectively on small screens while maintaining readability of financial data.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+                2. Limited Attention Span
+              </h3>
+              <p className="text-zinc-700 dark:text-white/80">
+                Users typically spend less than 2-3 minutes per session reviewing finances, requiring concise and actionable information.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+                3. Explainable Recommendations
+              </h3>
+              <p className="text-zinc-700 dark:text-white/80">
+                AI suggestions must be understandable and transparent to maintain user trust.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+                4. Recommendation Accuracy
+              </h3>
+              <p className="text-zinc-700 dark:text-white/80">
+                Insights should provide value without overwhelming users with unnecessary alerts or predictions.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+                5. Consistent Calm Experience
+              </h3>
+              <p className="text-zinc-700 dark:text-white/80">
+                Every interaction should reinforce the brand promise: "Track Smart. Live Calm."
+              </p>
+              <p className="text-zinc-500 dark:text-white/60 italic mt-1">
+                This meant avoiding cluttered dashboards, excessive charts and aggressive financial messaging.
+              </p>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Business Objectives Section */}
+        <FadeIn delay={0.1} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 pt-16 border-t border-border/40 mt-8">
+          <div className="md:col-span-1">
+            <h2 className="font-mono text-4xl sm:text-5xl font-normal uppercase tracking-wider text-zinc-900 dark:text-white">
+              Business<br />Objectives
+            </h2>
+          </div>
+          <div className="md:col-span-2 flex flex-col gap-8 text-base sm:text-xl leading-relaxed text-zinc-700 dark:text-white font-mono">
+            <div className="flex flex-col gap-6">
+              <h3 className="text-xl sm:text-2xl font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
+                Primary Objectives:
+              </h3>
+              
+              <div className="flex flex-col gap-2">
+                <h4 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white">
+                  1. Increase Financial Awareness
+                </h4>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Help users understand where their money is being spent through clear visual insights and spending summaries.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <h4 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white">
+                  2. Improve User Retention
+                </h4>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Create a daily-use financial companion that encourages users to return regularly and stay engaged with their finances.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <h4 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white">
+                  3. Encourage Goal-Based Saving
+                </h4>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Motivate users to save consistently by connecting financial habits to meaningful personal goals.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <h4 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white">
+                  4. Simplify Expense Management
+                </h4>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Reduce the effort required to track expenses through automation, categorization, and AI-powered recommendations.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <h4 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white">
+                  5. Build Trust in AI-Driven Finance
+                </h4>
+                <p className="text-zinc-700 dark:text-white/80">
+                  Provide explainable and transparent AI insights that help users make informed financial decisions.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 pt-8 border-t border-border/40 mt-4">
+              <h3 className="text-xl sm:text-2xl font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
+                Success Metrics:
+              </h3>
+              <ul className="flex flex-col gap-3 list-disc list-inside text-zinc-700 dark:text-white/80">
+                <li>Increased weekly active users</li>
+                <li>Higher savings goal completion rate</li>
+                <li>Reduced user drop-off during onboarding</li>
+                <li>Increased frequency of expense tracking</li>
+                <li>Higher engagement with AI insights and recommendations</li>
+              </ul>
+            </div>
+          </div>
         </FadeIn>
 
         {/* Reflection Section */}
