@@ -102,7 +102,7 @@ export default function CalmCash() {
 
         {/* Metadata columns mimicking Figma layout */}
         <FadeIn delay={0.15}>
-          <div className="flex flex-col sm:flex-row flex-wrap sm:items-start gap-x-12 md:gap-x-20 gap-y-6 py-8 border-y border-border/40">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-y-6 py-8 border-y border-border/40">
             <div>
               <p className="text-base text-zinc-500 dark:text-white uppercase tracking-widest mb-1.5 font-mono">service :</p>
               <p className="text-lg sm:text-xl md:text-2xl text-zinc-900 dark:text-white font-mono">mobile app design</p>
